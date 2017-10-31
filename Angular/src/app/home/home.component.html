@@ -1,3 +1,14 @@
-<p>
-  home works!
-</p>
+<div *ngFor="let news of results">
+  <mat-card >
+    <img mat-card-avatar src="{{(news.user.avatar)? news.user.avatar: '/assets/img/user.png' }}"/>
+    <!-- <img src="{{news.imagePath}}" class="mat-card-image" alt="Washed Out"> -->
+    <mat-card-title>{{news.title}}</mat-card-title>
+    <mat-card-subtitle>{{news.user.name}}</mat-card-subtitle>
+    <mat-card-content>
+      {{news.content}}
+      <!-- Name: <input [(ngModel)]="news.name" [value]="news.name" (keyup.enter)="onKeyUp()"> -->
+    </mat-card-content>
+    <mat-card-actions layout="row" layout-align="end center">
+    </mat-card-actions>
+  </mat-card>
+</div>

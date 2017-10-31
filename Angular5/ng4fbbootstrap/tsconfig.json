@@ -1,19 +1,19 @@
 {
-  "compileOnSave": false,
+  "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "./dist/out-tsc",
+    "target": "es6",
+    "outDir": "./dist",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "module": "commonjs",
+    "removeComments": false,
+    "noImplicitAny": false,
     "baseUrl": "types",
     "typeRoots": [
       "node_modules/@types"
-    ],
-    "types": [
-      "hammerjs"
     ],
     "lib": [
       "es2017",
