@@ -1,40 +1,50 @@
-<div class="container" role="main">
-	<div class="vcenter">
-    	<div class="row">
-    	    <div class="login_box">
-        	    <div class="col-md-12 col-xs-12" align="center">
-                    <div class="line">  
-                    <h3 > <img align="left" style="width: 81px; height: 65px; margin-left: 5%;" src="../assets/img/logo_pg.png"/></h3></div>
-                    <div class="outter">
-                        <img routerLink="/" src="../assets/img/ds.png" class="image-circle"/>
-                    </div>
-        	    </div>        
-            </div>
-        </div>
-    </div>
+<div class="tagline-upper text-center text-heading text-black mt-5 d-none d-lg-block" style="color: rgba(24, 74, 119, 0.95);
+font-family: Pill_Gothic;
+margin-top: 0.3em;
+margin-bottom: 0.2em;">
+  <img src="img/logo_pg.png" height="80em" alt="PG"> DS Online</div>
+<!-- <div class="tagline-lower text-center text-expanded text-shadow text-uppercase text-white mb-5 d-none d-lg-block">3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890</div>
 </div>
-
-
-<div class="nav has-shadow">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-faded py-lg-4">
   <div class="container">
-    
-    <span class="nav-toggle" (click)="toggleNav = !toggleNav;" [ngClass]="{'is-active': toggleNav }">
-      <span></span>
-      <span></span>
-      <span></span>
-    </span>
-
-    <div class="nav-right nav-menu" [ngClass]="{'is-active': toggleNav }">
-      <a routerLink="/" class="nav-item r-item">Aktualności</a>
-      <a routerLink="/laundry" class="nav-item r-item">Pralnia</a>
-      <a routerLink="/gym" class="nav-item r-item">Siłownia</a>
-      <a routerLink="/silence-room" class="nav-item r-item">Sala cichej nauki</a>
-      <a routerLink="/report" class="nav-item r-item">Zgoś usterkę</a>
+    <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">DS Online mobilne</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active px-lg-4">
+          <a class="nav-link text-uppercase text-expanded" href="index.html">Aktualności
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item px-lg-4">
+          <a class="nav-link text-uppercase text-expanded" href="silownia.html">Siłownia</a>
+        </li>
+        <li class="nav-item px-lg-4">
+          <a class="nav-link text-uppercase text-expanded" href="pralnia.html">Pralnia</a>
+        </li>
+        <li class="nav-item px-lg-4">
+          <a class="nav-link text-uppercase text-expanded" href="sala.html">Sala cichej nauki</a>
+        </li>
+        <li class="nav-item px-lg-4">
+          <a class="nav-link text-uppercase text-expanded" href="usterka.html">Zgłoś usterkę</a>
+        </li>
+      </ul>
     </div>
-
   </div>
-</div>
+</nav>
 
 <router-outlet></router-outlet>
 
-<!-- footer -->
+<footer class="bg-faded text-center py-5">
+  <div class="container">
+    <p class="m-0">Copyright &copy; 2017</p>
+  </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+<script src="../assets/jquery/jquery.min.js"></script>
+<script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
