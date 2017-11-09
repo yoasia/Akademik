@@ -1,40 +1,97 @@
 {
     "news":[
-    {
-        "id":"0",
-        "data": "01.10.2017",
-        "user":{
-            "name":"asia",
-            "type":"",
-            "avatar":""
+        {
+            "id":"0",
+            "data": "01.10.2017",
+            "user":{
+                "name":"asia",
+                "type":"",
+                "avatar":""
+            },
+            "imagePath": "../../assets/img/washedout.png",
+            "title":"First notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
         },
-        "imagePath": "../../assets/img/washedout.png",
-        "title":"First notice",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        {
+            "id":"1",
+            "data": "02.10.2017",
+            "user":{
+                "name":"asia",
+                "type":"",
+                "avatar":""
+            },
+            "imagePath": "../../assets/img/washedout.png",
+            "title":"Second notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        },
+        {
+            "id":"2",
+            "data": "03.10.2017",
+            "user":{
+                "name":"asia",
+                "type":"",
+                "avatar":""
+            },
+            "imagePath": "../../assets/img/washedout.png",
+            "title":"Third notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        }
+    ],
+    "new_user":{
+        "status":"string",
+        "message":"string",
+        "nickname":"string",
+        "password":"strind - password in md5",
+        "index":"int",
+        "ds_number":"int",
+        "room_number":"string",
+        "user_type":"string",
+        "email":"string"   
     },
-    {
-        "id":"1",
-        "data": "02.10.2017",
-        "user":{
-            "name":"asia",
-            "type":"",
-            "avatar":""
+    "defect":{
+        "new":{
+            "status":"string",
+            "message":"string",
+            "nickname":"string",
+            "action":"string [new]",
+            "title":"string",
+            "description":"string",
+            "is_done":"boolean"
         },
-        "imagePath": "../../assets/img/washedout.png",
-        "title":"Second notice",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
-    },
-    {
-        "id":"2",
-        "data": "03.10.2017",
-        "user":{
-            "name":"asia",
-            "type":"",
-            "avatar":""
+        "get":{
+            "status":"string",
+            "message":"string",
+            "content":[
+                {
+                    "id_defect":"integer",
+                    "title":"string",
+                    "description":"string",
+                    "is_done":"boolean"
+                },
+                {
+                    "id_defect":"integer",
+                    "title":"string",
+                    "description":"string",
+                    "is_done":"boolean"
+                }
+
+            ]
+            
         },
-        "imagePath": "../../assets/img/washedout.png",
-        "title":"Third notice",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        "remove":{
+            "status":"string",
+            "message":"string",
+            "action":"string [remove]",
+            "id_defect":"integer"
+        },
+        "done":{
+            "status":"string",
+            "message":"string",
+            "id_defect":"integer",
+            "action":"string [remove]",
+            "is_done":"boolean"
+        }
+
     }
-]
+    
 }

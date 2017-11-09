@@ -1,0 +1,78 @@
++---------------------+
+| Tables_in_project_1 |
++---------------------+
+| gym_lock            |
+| hall_lock           |
+| laundry_lock        |
+| messaging           |
+| notifications       |
+| users               |
++---------------------+
+
+## gym_lock            
++---------+---------+------+-----+---------+----------------+
+| Field   | Type    | Null | Key | Default | Extra          |
++---------+---------+------+-----+---------+----------------+
+| id_lock | int(11) | NO   | PRI | NULL    | auto_increment |
+| id_user | int(11) | NO   |     | 1       |                |
+| date    | date    | YES  |     | NULL    |                |
+| time    | time    | YES  |     | NULL    |                |
++---------+---------+------+-----+---------+----------------+
+
+## hall_lock           
++---------+---------+------+-----+---------+----------------+
+| Field   | Type    | Null | Key | Default | Extra          |
++---------+---------+------+-----+---------+----------------+
+| id_lock | int(11) | NO   | PRI | NULL    | auto_increment |
+| id_user | int(11) | NO   |     | 1       |                |
+| date    | date    | YES  |     | NULL    |                |
+| time    | time    | YES  |     | NULL    |                |
++---------+---------+------+-----+---------+----------------+
+
+## laundry_lock        
++---------+---------+------+-----+---------+----------------+
+| Field   | Type    | Null | Key | Default | Extra          |
++---------+---------+------+-----+---------+----------------+
+| id_lock | int(11) | NO   | PRI | NULL    | auto_increment |
+| id_user | int(11) | NO   |     | NULL    |                |
+| date    | date    | YES  |     | NULL    |                |
+| time    | time    | YES  |     | NULL    |                |
++---------+---------+------+-----+---------+----------------+
+
+## messaging
++------------+---------------+------+-----+---------+----------------+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| id_message | int(11)       | NO   | PRI | NULL    | auto_increment |
+| id_source  | int(11)       | NO   |     | NULL    |                |
+| id_dest    | int(11)       | NO   |     | NULL    |                |
+| content    | varchar(1000) | YES  |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+
+## notifications
+
++-----------------+---------------+------+-----+---------+----------------+
+| Field           | Type          | Null | Key | Default | Extra          |
++-----------------+---------------+------+-----+---------+----------------+
+| id_notification | int(11)       | NO   | PRI | NULL    | auto_increment |
+| id_user         | int(11)       | NO   |     | NULL    |                |
+| content         | varchar(5000) | YES  |     | NULL    |                |
+| delivery_status | tinyint(1)    | YES  |     | NULL    |                |
++-----------------+---------------+------+-----+---------+----------------+
+
+## users
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id_user     | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name        | char(15)    | YES  |     | NULL    |                |
+| surname     | char(15)    | YES  |     | NULL    |                |
+| email       | varchar(40) | YES  |     | NULL    |                |
+| user_type   | int(11)     | YES  |     | NULL    |                |
+| ds_number   | int(11)     | NO   |     | NULL    |                |
+| room_number | char(10)    | YES  |     | NULL    |                |
+| nickname    | char(20)    | YES  |     | NULL    |                |
+| password    | char(40)    | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+
+
