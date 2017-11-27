@@ -36,6 +36,15 @@
       "content": ""
     }
   ],
+  "login": {
+    "id": "string",
+    "email": "string",
+    "password": "string",
+    "name": "string",
+    "surname": "string",
+    "type": "string",
+    "ds": "number"
+  },
   "new_user": {
     "status": "string",
     "message": "string",

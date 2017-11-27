@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import {HttpClientModule} from '@angular/common/http';
-import {MaterialModule} from './material.module';
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './material.module';
 import 'hammerjs';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,11 @@ import { HomeComponent } from './home/home.component';
 import { SilenceRoomComponent } from './silence-room/silence-room.component';
 import { ReportComponent } from './report/report.component';
 import { SingUpComponent } from './sing-up/sing-up.component';
+import { BaseRequestOptions } from '@angular/http';
+
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { AuthenticationService } from './_services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,7 @@ import { SingUpComponent } from './sing-up/sing-up.component';
     SilenceRoomComponent,
     ReportComponent,
     SingUpComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +39,11 @@ import { SingUpComponent } from './sing-up/sing-up.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    AuthenticationService,
+    BaseRequestOptions
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,20 +1,24 @@
 //sample
 {
-    "new_user":{
-        "nickname":"string",
-        "password":"strind - password in md5",
-        "index":"int",
-        "ds_number":"int",
-        "room_number":"string",
-        "user_type":"string",
-        "email":"string"
-    },
-    "defect":{
-        "action":"string [new, get, done, remove]",
-        "title":"string",
-        "description":"string",
-        "is_done":"boolean"
-    }
+  "login": {
+    "email": "string",
+    "password": "strind - password in md5"
+  },
+  "new_user": {
+    "nickname": "string",
+    "password": "strind - password in md5",
+    "index": "int",
+    "ds_number": "int",
+    "room_number": "string",
+    "user_type": "string",
+    "email": "string"
+  },
+  "defect": {
+    "action": "string [new, get, done, remove]",
+    "title": "string",
+    "description": "string",
+    "is_done": "boolean"
+  }
 
 
 }
