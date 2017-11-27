@@ -5,7 +5,6 @@ Instalacja TypeScript
 npm install --save-dev typescript @types/node @types/jasmine @types/core-js
 
 
-
 Odpalenie lokalnego serwera
 ng serve
 
@@ -18,13 +17,12 @@ http://localhost:4200
 
 
 
-
-
-
-
-
 //******************************************************
 Tworzenie nowego projektu
 ng new <nazwa_projektu> --skip-install
 cd <nazwa_projektu>
 npm install
+
+Tworzenie nowego komponentu
+ng g c <nazwa komponentu> --module app
+

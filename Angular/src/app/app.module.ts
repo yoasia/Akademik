@@ -14,6 +14,7 @@ import { LaundryComponent } from './laundry/laundry.component';
 import { HomeComponent } from './home/home.component';
 import { SilenceRoomComponent } from './silence-room/silence-room.component';
 import { ReportComponent } from './report/report.component';
+import { SingUpComponent } from './sing-up/sing-up.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ReportComponent } from './report/report.component';
     HomeComponent,
     SilenceRoomComponent,
     ReportComponent,
+    SingUpComponent,
   ],
   imports: [
     BrowserModule,
