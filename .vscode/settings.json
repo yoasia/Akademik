@@ -1,0 +1,27 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "emeraldwalk.runonsave": {
+    "commands": [
+        {
+            "match": "\\.js$",
+            "cmd": "cd ${workspaceRoot} && npm run build "
+        },
+        {
+            "match": "\\.css$",
+            "cmd": "cd ${workspaceRoot} && npm run build "
+        },
+        {
+            "match": "\\.less$",
+            "cmd": "cd ${workspaceRoot} && npm run build "
+        }
+    ]
+},
+    "beautify.config":{
+        "editor.formatOnSave":true
+    },
+    "less.compile": {
+        "compress":  true,  // true => remove surplus whitespace
+        "sourceMap": true,  // true => generate source maps (.css.map files)
+        "out":       true, // false => DON'T output .css files (overridable per-file, see below)
+    }
+}
