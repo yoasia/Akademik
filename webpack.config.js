@@ -13,6 +13,7 @@ module.exports = {
         filename: 'dst/bundle.js'
     },
     plugins: [
+
     ],
     module: {
 
