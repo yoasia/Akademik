@@ -1,4 +1,6 @@
 <?php
+include 'utils.php';
+
   function get_defects() {
      require('db_connect.php');
 
@@ -8,6 +10,7 @@
      if($result > 0) {
        //$result = json_encode($result);
        while($row = mysqli_fetch_assoc($result)) {
+         $row["nickname"] = getNickname($row["id_user"]);
          array_push($json_array, $row);
        }
        $json_array = json_encode($json_array);
