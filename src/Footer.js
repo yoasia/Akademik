@@ -9,7 +9,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <SemanticHeader  attached='bottom' className="gradient padd ">
+      <SemanticHeader  attached='bottom' className="gradient padd">
         <SemanticHeader.Content>
           {this.state.someKey}
         </SemanticHeader.Content>

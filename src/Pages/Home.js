@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Button } from 'semantic-ui-react';
+import { Card, Icon, Button, Grid } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Home extends React.Component {
@@ -46,30 +46,30 @@ class Home extends React.Component {
     }
 
     return (
-      <div className='padd'>
-        <Card.Group itemsPerRow={3}>
+      <Grid container columns={1} stackable className="padd">
           {this.state.news.map((element, index)=>{
             return (
-              <Card key={element.id}>
-                <Card.Content>
-                  <Card.Header>
-                    {element.title}
-                  </Card.Header>
-                  <Card.Meta>
-                    {element.data}
-                    <div className='float-right'>
-                      <Icon name='user' />
-                      {element.username}
-                    </div>
-                  </Card.Meta>
-                </Card.Content>
-                <Card.Content extra>
-                  {element.content}
-                </Card.Content>
-              </Card>);
+              <Grid.Column>
+                <Card key={element.id} fluid>
+                  <Card.Content>
+                    <Card.Header>
+                      {element.title}
+                    </Card.Header>
+                    <Card.Meta>
+                      {element.data}
+                      <div className='float-right'>
+                        <Icon name='user' />
+                        {element.username}
+                      </div>
+                    </Card.Meta>
+                  </Card.Content>
+                  <Card.Content extra>
+                    {element.content}
+                  </Card.Content>
+                </Card>
+              </Grid.Column>);
           })}
-        </Card.Group>
-      </div>
+      </Grid>
     );
   }
 }

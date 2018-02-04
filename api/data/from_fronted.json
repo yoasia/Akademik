@@ -18,6 +18,12 @@
     "title": "string",
     "description": "string",
     "is_done": "boolean"
+  },
+  "booking_get":{
+    "type":"laundry",
+    "ds_number": 6,
+    "floor": 1,
+    "id_user": 1
   }
 
 

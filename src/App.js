@@ -20,13 +20,15 @@ import Laundry from './Pages/Laundry';
 
   class User{
     constructor(props) {
-        this.id = props.id,
-        this.email = props.email,
-        this.username = props.nickname,
-        this.name = props.name,
-        this.surname = props.surname,
-        this.type = props.type,
-        this.ds = props.ds
+        this.id = props.id;
+        this.email = props.email;
+        this.username = props.nickname;
+        this.name = props.name;
+        this.surname = props.surname;
+        this.type = props.type;
+        this.ds = props.ds;
+        this.room = props.room;
+        this.floor = props.room/100;
     }
   }
 
@@ -41,8 +43,7 @@ class App extends React.Component {
         
         this.state = {
             logged:null,
-            user:null,
-
+            user:null
         };
     }
     componentWillMount(){
@@ -73,6 +74,7 @@ class App extends React.Component {
     handleContextRef = contextRef => this.setState({ contextRef })
 
     render() {
+        let self = this;
         var loginOrHome = null;
         let loaderElement = null;
         const { contextRef } = this.state
@@ -82,13 +84,12 @@ class App extends React.Component {
         }
 
         return (
-
             <div ref={this.handleContextRef}>
                 <Segment className="no-padd">
                     
                     {loaderElement}
                     <Router>
-                        <div className="container">
+                        <div className="container bottom-margin">
                             {/* <Sticky context={contextRef}> */}
                                 <Header username={(this.state.user)? this.state.user.username : null }></Header>
                             {/* </Sticky> */}
@@ -111,7 +112,7 @@ class App extends React.Component {
                                 this.state.logged == false  ? (
                                     <Redirect to="/login"/>
                                 ) : (
-                                    <Laundry />
+                                    <Laundry user={self.state.user} />
                                 )
                             )}/>
                             <Route path="/login" render={() => (
