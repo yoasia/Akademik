@@ -32,7 +32,6 @@
   {
     require('db_connect.php');
 
-    $notification = array();
     $id_user = $_POST["id_user"];
     $content = $_POST["content"];
 
