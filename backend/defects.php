@@ -1,7 +1,7 @@
 <?php
 include 'utils.php';
 
-  function get_defects() {
+  function getDefects() {
      require('db_connect.php');
 
      $query = "SELECT * FROM defects";
