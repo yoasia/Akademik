@@ -7,34 +7,46 @@ class Laundry extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      downloaded_laundry:null,
-      downloaded_floors:null,
+      downloaded_laundry:false,
+      downloaded_floors:false,
       user_floor:null,
       floorSelectOptions:null,
       hours:null,
       user:props.user,
-      laundry_list:[]
+      laundry_list:[],
+      activeItem:(props.user)? props.user.floor: null
     };
+
+    this.update = this.update.bind(this);
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({user:nextProps.user})
+    if(nextProps.user)
+      this.setState({user:nextProps.user, activeItem:nextProps.user.floor});
   }
 
-  handleChange = (e, { name, value }) => this.setState({ [name]: value })
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  componentDidUpdate(prevProps, prevState){
+    if((!prevState.user && this.state.user) || this.state.laundry_list.length == 0){
+      this.update();
+    }
+  }
+  componentDidMount(){
+    if(this.state.user){
+      this.update();
+    }
+  }
 
-  componentWillMount(){
+  update(){
     let self = this;
     var url = null;
-    var downloaded_laundry = null;
-    var downloaded_floors = null;
+    var downloaded_laundry = false;
+    var downloaded_floors = false;
     var laundry_list = null;
     var hours = null;
     var user_floor = null;
     var floors = null;
     var floorSelectOptions = null;
     var randLogin = Math.random();
-
+  
     axios.get("http://localhost:3000/laundry")
     .then(function (response) {
       downloaded_laundry = true;
@@ -72,7 +84,12 @@ class Laundry extends React.Component {
     .catch(function (error) {
       console.log(error);
     });
-}
+  }
+  
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value })
+  handleItemClick = (e, { value }) => this.setState({ activeItem: value })
+
 
   render() {
     let self = this;
@@ -80,9 +97,9 @@ class Laundry extends React.Component {
     const { activeItem } = this.state;
     if(this.state.downloaded_floors){
       dropDownElement = (
-        <Menu color="purple" secondary>
+        <Menu  size='massive'  >
           {self.state.floorSelectOptions.map((element, index)=>{
-            return <Menu.Item name={"Floor" + element.value} active={activeItem === 'home'} onClick={this.handleItemClick} basic />
+            return <Menu.Item key={index} value={element.value} name={"Floor" + element.value} active={activeItem === element.value} onClick={this.handleItemClick} basic color="purple"/>
           })
           }
         </Menu>
@@ -136,8 +153,6 @@ class Laundry extends React.Component {
       </Grid>
       );
   }
-
-
 }
 
 export default Laundry;

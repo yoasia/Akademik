@@ -69035,34 +69035,51 @@ var Laundry = function (_React$Component) {
     };
 
     _this.handleItemClick = function (e, _ref2) {
-      var name = _ref2.name;
-      return _this.setState({ activeItem: name });
+      var value = _ref2.value;
+      return _this.setState({ activeItem: value });
     };
 
     _this.state = {
-      downloaded_laundry: null,
-      downloaded_floors: null,
+      downloaded_laundry: false,
+      downloaded_floors: false,
       user_floor: null,
       floorSelectOptions: null,
       hours: null,
       user: props.user,
-      laundry_list: []
+      laundry_list: [],
+      activeItem: props.user ? props.user.floor : null
     };
+
+    _this.update = _this.update.bind(_this);
     return _this;
   }
 
   _createClass(Laundry, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      this.setState({ user: nextProps.user });
+      if (nextProps.user) this.setState({ user: nextProps.user, activeItem: nextProps.user.floor });
     }
   }, {
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (!prevState.user && this.state.user || this.state.laundry_list.length == 0) {
+        this.update();
+      }
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if (this.state.user) {
+        this.update();
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
       var self = this;
       var url = null;
-      var downloaded_laundry = null;
-      var downloaded_floors = null;
+      var downloaded_laundry = false;
+      var downloaded_floors = false;
       var laundry_list = null;
       var hours = null;
       var user_floor = null;
@@ -69114,9 +69131,9 @@ var Laundry = function (_React$Component) {
       if (this.state.downloaded_floors) {
         dropDownElement = _react2.default.createElement(
           _semanticUiReact.Menu,
-          { color: 'purple', secondary: true },
+          { size: 'massive' },
           self.state.floorSelectOptions.map(function (element, index) {
-            return _react2.default.createElement(_semanticUiReact.Menu.Item, { name: "Floor" + element.value, active: activeItem === 'home', onClick: _this2.handleItemClick, basic: true });
+            return _react2.default.createElement(_semanticUiReact.Menu.Item, { key: index, value: element.value, name: "Floor" + element.value, active: activeItem === element.value, onClick: _this2.handleItemClick, basic: true, color: 'purple' });
           })
         );
       }

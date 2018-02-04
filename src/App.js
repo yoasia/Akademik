@@ -90,10 +90,7 @@ class App extends React.Component {
                     {loaderElement}
                     <Router>
                         <div className="container bottom-margin">
-                            {/* <Sticky context={contextRef}> */}
-                                <Header username={(this.state.user)? this.state.user.username : null }></Header>
-                            {/* </Sticky> */}
-
+                            <Header username={(this.state.user)? this.state.user.username : null }></Header>
                             <Route exact path="/" render={() => (
                                 this.state.logged == false  ? (
                                     <Redirect to="/login"/>
