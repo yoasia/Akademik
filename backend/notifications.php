@@ -1,5 +1,5 @@
 <?php
-include 'utils.php';
+  include 'utils.php';
 
   function getNotifications()
   {
@@ -27,5 +27,27 @@ include 'utils.php';
     return $json_array;
   }
 
+
+  function addNotification()
+  {
+    require('db_connect.php');
+
+    $notification = array();
+    $id_user = $_POST["id_user"];
+    $content = $_POST["content"];
+
+    $query = "INSERT INTO notifications (id_user, content) VALUES ('$id_user', '$content')";
+
+    if(mysqli_query($connection, $query) or die(mysqli_error($connection)))
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+
+    return true;
+  }
 
  ?>
