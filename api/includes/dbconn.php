@@ -1,10 +1,10 @@
 <?php
 
-include_once './config.php';   
-$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+include_once 'config.php';
+$connection = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
 
-if (!$mysqli) {
+if (!$connection) {
     die("Couldn't connect to database");
 }
 
