@@ -1,9 +1,6 @@
 <?php
-  include 'utils.php';
-
-  function getGymLock()
-  {
-    require('db_connect.php');
+include '../utils.php';
+require('../includes/dbconn.php');
 
     $query = "SELECT * FROM gym_lock";
     $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
@@ -18,9 +15,8 @@
       $json_array = json_encode($json_array);
 
     } else {
-      return false;
+      echo "false";
     }
-    return $json_array;
-  }
+    print $json_array;
 
  ?>
