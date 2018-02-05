@@ -49,8 +49,8 @@ class Home extends React.Component {
       <Grid container columns={1} stackable className="padd">
           {this.state.news.map((element, index)=>{
             return (
-              <Grid.Column>
-                <Card key={element.id} fluid>
+              <Grid.Column key={element.id}>
+                <Card  fluid>
                   <Card.Content>
                     <Card.Header>
                       {element.title}

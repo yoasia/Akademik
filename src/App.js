@@ -80,7 +80,7 @@ class App extends React.Component {
         const { contextRef } = this.state
 
         if(this.state.logged == null){
-            loaderElement = <Dimmer active><Loader size='big'>Loading</Loader> </Dimmer>;
+            loaderElement = <Dimmer inverted active><Loader inverted size='big'>Loading</Loader> </Dimmer>;
         }
 
         return (
@@ -95,14 +95,14 @@ class App extends React.Component {
                                 this.state.logged == false  ? (
                                     <Redirect to="/login"/>
                                 ) : (
-                                    <Home />
+                                    <Home user={self.state.user}/>
                                 )
                             )}/>
                             <Route path="/gym" render={() => (
                                 this.state.logged == false  ? (
                                     <Redirect to="/login"/>
                                 ) : (
-                                    <Gym />
+                                    <Gym user={self.state.user}/>
                                 )
                             )}/>
                             <Route path="/laundry" render={() => (

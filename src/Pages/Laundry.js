@@ -1,71 +1,48 @@
 import React from 'react';
-import { Card, Icon, Button, Segment, Grid, Header, Menu } from 'semantic-ui-react';
+import { Card, Icon, Button, Segment, Grid, Header, Menu, Label } from 'semantic-ui-react';
 import axios from 'axios';
 import GridColumn from 'semantic-ui-react/dist/commonjs/collections/Grid/GridColumn';
+
+//My components
+import BookingComponent from '../components/BookingComponent'
 
 class Laundry extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      downloaded_laundry:false,
       downloaded_floors:false,
       user_floor:null,
       floorSelectOptions:null,
-      hours:null,
       user:props.user,
-      laundry_list:[],
       activeItem:(props.user)? props.user.floor: null
     };
 
-    this.update = this.update.bind(this);
+    this.getFloors = this.getFloors.bind(this);
   }
   componentWillReceiveProps(nextProps) {
     if(nextProps.user)
       this.setState({user:nextProps.user, activeItem:nextProps.user.floor});
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if((!prevState.user && this.state.user) || this.state.laundry_list.length == 0){
-      this.update();
+  componentWillUpdate(nextProps, nextState){
+    if(nextProps.user && !this.state.user){
+      this.getFloors(nextProps.user.ds);
     }
   }
   componentDidMount(){
     if(this.state.user){
-      this.update();
+      this.getFloors(this.state.user.ds);
     }
   }
 
-  update(){
+  getFloors(ds){
     let self = this;
-    var url = null;
-    var downloaded_laundry = false;
     var downloaded_floors = false;
-    var laundry_list = null;
-    var hours = null;
     var user_floor = null;
     var floors = null;
     var floorSelectOptions = null;
-    var randLogin = Math.random();
-  
-    axios.get("http://localhost:3000/laundry")
-    .then(function (response) {
-      downloaded_laundry = true;
-        if(response.data){
-          laundry_list = response.data.days;
-          hours = response.data.hours;
-          user_floor = response.data.floor;
-            self.setState({downloaded_laundry, laundry_list, hours, user_floor});
-        }
-        else{
-            self.setState({downloaded_laundry});
-        }
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
 
-    axios.get("http://localhost:3000/floors?ds=6")
+    axios.get("http://localhost:3000/floors?ds="+ds)
     .then(function (response) {
       downloaded_floors = true;
         if(response.data){
@@ -103,55 +80,21 @@ class Laundry extends React.Component {
           })
           }
         </Menu>
-        )
+      )
     }
-    return (
-      <Grid padded className="padd" textAlign="center"> 
-        <Grid.Row key={1}>
-          {dropDownElement}
-        </Grid.Row>
-        <Grid.Row key={2}>
-        {this.state.laundry_list.map((day, index)=>{
-          return (
-            <Grid.Column key={index} computer={2} tablet={5} mobile={16}>
-              <Card>
-                <Card.Content key={1}>
-                  <Card.Header className="upper-case">
-                    {day.name}
-                  </Card.Header>
-                  <Card.Meta>
-                    {day.date}
-                  </Card.Meta>
-                </Card.Content>
-                <Card.Content key={2}>
-                {day.hours.map((hours, index)=>{
-                  var buttonElement = null;
-                  let canBook = (!hours.user_id);
-                  if(canBook){
-                    buttonElement = (
-                      <Button basic size='mini' color='green'>Book</Button>
-                    )
-                  }
-                  return (
-                    <Segment.Group  key={index}>
-                      <Segment textAlign="center">
-                        {self.state.hours[index]}
-                      </Segment>
-                      <Segment  textAlign="center">
-                        {hours.user_room}
-                        {buttonElement}
-                      </Segment>
-                    </Segment.Group>)
-                })}
-                
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-            );
-        })}
-        </Grid.Row>
-      </Grid>
+    if(this.state.user)
+      return (
+        <Grid padded className="padd" textAlign="center"> 
+          <Grid.Row key={1}>
+          </Grid.Row>
+          <Grid.Row key={2}>
+            {dropDownElement}
+          </Grid.Row>
+          <BookingComponent user={this.state.user} tablename={"laundry"} params={{floor:this.state.user.floor, ds_number:this.state.user.ds, id_user:this.state.user.id}}></BookingComponent>
+        </Grid>
       );
+    else
+      return null;
   }
 }
 
