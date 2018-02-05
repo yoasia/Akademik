@@ -1,0 +1,1394 @@
+{
+    "news": [{
+            "ds_number":6,
+            "id": "0",
+            "data": "01.10.2017",
+            "id_user": 1,
+            "time": "11:12:00",
+            "username": "asiasia",
+            "title": "First notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        },
+        {
+            "ds_number":6,
+            "id": "1",
+            "data": "02.10.2017",
+            "time": "11:12:00",
+            "id_user": 1,
+            "username": "asiasia",
+            "title": "Second notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        },
+        {
+            "ds_number":6,
+            "id": "2",
+            "data": "03.10.2017",
+            "time": "11:12:00",
+            "id_user": 1,
+            "username": "asiasia",
+            "title": "Third notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        },
+        {
+            "ds_number":6,
+            "id": "3",
+            "data": "03.10.2017",
+            "time": "11:12:00",
+            "id_user": 1,
+            "username": "asiasia",
+            "title": "Third notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        }
+    ],
+    "login": {
+        "id": "string",
+        "email": "string",
+        "password": "string",
+        "name": "string",
+        "surname": "string",
+        "type": "string",
+        "ds": "number",
+        "floor": "number"
+    },
+    "authenticate": [
+        {
+            "status": true,
+            "id": 1,
+            "email": "asia@gmail.com",
+            "nickname": "asiasia",
+            "type": "student",
+            "ds": 6,
+            "room": "200",
+            "floor": 2
+        },
+        {
+            "status": false
+        }
+    ],
+    "defects":[
+        {
+            "id": 2,
+            "id_user":1,
+            "date":"04.02.2018",
+            "title":"Zatkany prysznic",
+            "description":"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+            "status":"in queue"
+        },
+        {
+            "id": 12,
+            "id_user":1,
+            "date":"01.02.2018",
+            "title":"Zepsuta klamka",
+            "description":"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+            "status":"done"
+        }
+    ],
+    "defect": {
+        "new": {
+            "title":"string",
+            "description":""
+        },
+        "get": [
+                 {
+                    "id": "integer",
+                    "id_user":"integer",
+                    "date":"string",
+                    "title": "string",
+                    "description": "string",
+                    "status": "boolean"
+                },
+                {
+                    "id": "integer",
+                    "id_user":"integer",
+                    "date":"string",
+                    "title": "string",
+                    "description": "string",
+                    "status": "boolean"
+                }
+
+            ]
+        ,
+        "remove": {
+        },
+        "update": {
+            "id": "integer",
+            "id_user":"integer",
+            "date":"string",
+            "title": "string",
+            "description": "string",
+            "status": "boolean"
+        }
+    },
+
+    "laundry": {
+        "ds_number": 6,
+        "floor": 1,
+        "hours": [
+            "6.00 - 8.00",
+            "8.00 - 10.00",
+            "10.00 - 12.00",
+            "12.00 - 14.00",
+            "14.00 - 16.00",
+            "16.00 - 18.00",
+            "18.00 - 20.00",
+            "20.00 - 22.00",
+            "22.00 - 24.00"
+        ],
+        "days": [
+            {
+                "name": "sunday",
+                "date": "04.02.2018",
+                "hours": [
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "200",
+                        "user_id": 1,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "200",
+                        "user_id": 1,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "123B",
+                        "user_id": 12,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "monday",
+                "date": "05.02.2018",
+                "hours": [{
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "tuesdy",
+                "date": "06.01.2018",
+                "hours": [{
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "wednesday",
+                "date": "07.02.2018",
+                "hours": [{
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "thursday",
+                "date": "08.02.2018",
+                "hours": [{
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "friday",
+                "date": "09.02.2018",
+                "hours": [{
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "saturday",
+                "date": "10.02.2018",
+                "hours": [{
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            }
+        ]
+    },
+    "gym": {
+        "ds_number": 6,
+        "hours": [
+            "6.00 - 7.00",
+            "7.00 - 8.00",
+            "8.00 - 9.00",
+            "9.00 - 10.00",
+            "11.00 - 12.00",
+            "12.00 - 13.00",
+            "13.00 - 14.00",
+            "14.00 - 15.00",
+            "15.00 - 16.00",
+            "16.00 - 17.00",
+            "17.00 - 18.00",
+            "18.00 - 19.00",
+            "19.00 - 20.00",
+            "20.00 - 21.00",
+            "21.00 - 22.00",
+            "22.00 - 23.00",
+            "23.00 - 24.00",
+            "24.00 - 1.00"
+        ],
+        "days": [
+            {
+                "name": "sunday",
+                "date": "04.02.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "monday",
+                "date": "05.02.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "tuesdy",
+                "date": "06.01.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "wednesday",
+                "date": "07.02.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "thursday",
+                "date": "08.02.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "friday",
+                "date": "09.02.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            },
+            {
+                "name": "saturday",
+                "date": "10.02.2018",
+                "hours": [
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    },
+                    {
+
+                        "user_room": "",
+                        "user_id": null,
+                        "editable": true
+                    }
+                ]
+            }
+        ]
+    },
+    
+    "floors":[
+        {
+            "ds":1,
+            "floors":[0, 1, 2, 3, 4]
+        },
+        {
+            "ds":"2",
+            "floors":[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+        },
+        {
+            "ds":"3",
+            "floors":[0, 1, 2, 3, 4]
+        },
+        {
+            "ds":"4",
+            "floors":[0, 1, 2, 3, 4]
+        },
+        {
+            "ds":"5",
+            "floors":[0, 1, 2, 3, 4, 5]
+        },
+        {
+            "ds":"6",
+            "floors":[0, 1, 2, 3, 4, 5]
+        }
+    ]
+}
