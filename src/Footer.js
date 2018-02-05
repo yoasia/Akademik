@@ -4,14 +4,16 @@ import { Image, Menu, Icon, Label,  Header as SemanticHeader } from 'semantic-ui
 class Footer extends React.Component {
   constructor() {
     super();
-    this.state = { someKey: 'Footer' };
+    this.state = { 
+
+     };
   }
 
   render() {
     return (
       <SemanticHeader  attached='bottom' className="gradient padd">
         <SemanticHeader.Content>
-          {this.state.someKey}
+          Copyright © 2018
         </SemanticHeader.Content>
       </SemanticHeader>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {  Segment, List, Grid, Button, Header, Icon  } from 'semantic-ui-react';
+import {  Segment, List, Grid, Button, Header, Icon, Image } from 'semantic-ui-react';
 
 class Report extends React.Component {
   constructor(props) {
@@ -50,12 +50,15 @@ class Report extends React.Component {
         return (
         <Grid padded className="padd" textAlign="center"> 
             <Grid.Row key={1}>
-                <Header>Your reports</Header>
+                <Image src='../../assets/img/c4.png' size='small' wrapped />
             </Grid.Row>
             <Grid.Row key={2}>
-                <Button basic icon > <Icon color="green" name='plus' />New Report</Button>
+                <Header>Your reports</Header>
             </Grid.Row>
             <Grid.Row key={3}>
+                <Button basic icon > <Icon color="green" name='plus' />New Report</Button>
+            </Grid.Row>
+            <Grid.Row key={4}>
                 <List divided verticalAlign='middle'>
                 {this.state.user_reports.map((element, index)=>{
                     var status = element.status;

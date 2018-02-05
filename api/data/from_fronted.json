@@ -4,18 +4,39 @@
     "email": "string",
     "password": "strind - password in md5"
   },
-  "defect": {
-    "action": "string [new, get, done, remove]",
+  "logout": {
+    
+  },
+  "defect_get": {},
+  "defect_remove": {
+    "id": "integer"
+  },
+  "defect_new": {
+    "title": "string",
+    "description": "string"
+  },
+  "defect_update": {
+    "id": "integer",
+    "date":"string",
     "title": "string",
     "description": "string",
-    "is_done": "boolean"
+    "status": "boolean"
   },
-  "booking_get":{
-    "type":"laundry",
-    "ds_number": 6,
-    "floor": 1,
-    "id_user": 1
+  "laundry_gym_silence_get":{
+    "tablename":"string",
+    "ds_number": "integer",
+    "floor": "integer [optional]"
+  },
+  "laundry_gym_silence_update":{
+    "id":"integer",
+    "tablename":"string",
+    "user_room": "string",
+    "user_id": "integer"
+  },
+  "news_get":{
+  },
+  "authenticate":{
   }
 
-
+  
 }

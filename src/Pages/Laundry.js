@@ -86,7 +86,7 @@ class Laundry extends React.Component {
       return (
         <Grid padded className="padd" textAlign="center"> 
           <Grid.Row key={1}>
-            <Image src='../../assets/img/washer.png' size='small' wrapped />
+            <Image src='../../assets/img/c3.png' size='small' wrapped />
           </Grid.Row>
           <Grid.Row key={2}>
             {dropDownElement}

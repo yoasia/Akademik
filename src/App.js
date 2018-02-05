@@ -18,6 +18,7 @@ import Home from './Pages/Home';
 import Gym from './Pages/Gym';
 import Laundry from './Pages/Laundry';
 import Report from './Pages/Report';
+import StudyRoom from './Pages/StudyRoom';
 
   class User{
     constructor(props) {
@@ -44,8 +45,19 @@ class App extends React.Component {
             logged:null,
             user:null
         };
+        this.activePage = null;
+        this.logout = this.logout.bind(this);
     }
+
+    logout(){
+        this.setState({
+            logged:false,
+            user:null
+        })
+    }
+
     componentWillMount(){
+
         let self = this;
         var url = null;
         var randLogin = Math.random();
@@ -81,59 +93,122 @@ class App extends React.Component {
         if(this.state.logged == null){
             loaderElement = <Dimmer inverted active><Loader inverted size='big'>Loading</Loader> </Dimmer>;
         }
-
-        return (
-            <div ref={this.handleContextRef}>
-                <Segment className="no-padd">
-                    
-                    {loaderElement}
-                    <Router>
-                        <div className="container bottom-margin">
-                            <Header username={(this.state.user)? this.state.user.username : null }></Header>
-                            <Route exact path="/" render={() => (
-                                this.state.logged == false  ? (
-                                    <Redirect to="/login"/>
-                                ) : (
-                                    <Home user={self.state.user}/>
-                                )
-                            )}/>
-                            <Route path="/gym" render={() => (
-                                this.state.logged == false  ? (
-                                    <Redirect to="/login"/>
-                                ) : (
-                                    <Gym user={self.state.user}/>
-                                )
-                            )}/>
-                            <Route path="/laundry" render={() => (
-                                this.state.logged == false  ? (
-                                    <Redirect to="/login"/>
-                                ) : (
-                                    <Laundry user={self.state.user} />
-                                )
-                            )}/>
-                            <Route path="/report" render={() => (
-                                this.state.logged == false  ? (
-                                    <Redirect to="/login"/>
-                                ) : (
-                                    <Report user={self.state.user}/>
-                                )
-                            )}/>
-                            <Route path="/login" render={() => (
-                                this.state.logged == true  ? (
-                                    <Redirect to="/"/>
-                                ) : (
-                                    <Login />
-                                )
-                            )}/>
-                            <Route path="logout" render={() => (
-                                <Logout />
-                            )}/>
-                            <Footer></Footer>
-                        </div>
-                    </Router>
-                </Segment>
-            </div>
-        )
+        if(this.state.logged)
+            return (
+                <div ref={this.handleContextRef}>
+                    <Segment className="no-padd">
+                        {loaderElement}
+                        <Router>
+                            <div className="container bottom-margin">
+                                <Header username={(this.state.user)? this.state.user.username : null }></Header>
+                                <Route exact path="/" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Home user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/gym" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Gym user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/laundry" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Laundry user={self.state.user} />
+                                    )
+                                )}/>
+                                <Route path="/report" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Report user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/study-room" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <StudyRoom user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/login" render={() => (
+                                    this.state.logged == true  ? (
+                                        <Redirect to="/"/>
+                                    ) : (
+                                        <Login />
+                                    )
+                                )}/>
+                                <Route path="/logout" render={() => (
+                                    <Logout logout={this.logout} />
+                                )}/>
+                                <Footer></Footer>
+                            </div>
+                        </Router>
+                    </Segment>
+                </div>
+            )
+        else
+            return (
+                <div ref={this.handleContextRef}>
+                    <Segment className="no-padd">
+                        {loaderElement}
+                        <Router>
+                            <div >
+                                <Route exact path="/" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Home user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/gym" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Gym user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/laundry" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Laundry user={self.state.user} />
+                                    )
+                                )}/>
+                                <Route path="/report" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <Report user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/study-room" render={() => (
+                                    this.state.logged == false  ? (
+                                        <Redirect to="/login"/>
+                                    ) : (
+                                        <StudyRoom user={self.state.user}/>
+                                    )
+                                )}/>
+                                <Route path="/login" render={() => (
+                                    this.state.logged == true  ? (
+                                        <Redirect to="/"/>
+                                    ) : (
+                                        <Login />
+                                    )
+                                )}/>
+                                <Route path="/logout" render={() => (
+                                    <Redirect to="/login" push />
+                                )}/>
+                            </div>
+                        </Router>
+                    </Segment>
+                </div>
+            );
     }
 }
 
