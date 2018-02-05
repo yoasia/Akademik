@@ -6,9 +6,11 @@ require('../includes/dbconn.php');
      $title = $_POST["title"];
      $description = $_POST["description"];
      $is_done = false;
+     $now = time();
+
 
      $query = "INSERT INTO defects (id_user, title, description, is_done)
-      VALUES ('$id_user', '$title', '$description', '$is_done')";
+      VALUES ('$id_user', '$title', '$description', '$is_done', FROM_UNIXTIME($now))";
 
      if(mysqli_query($connection, $query) or die(mysqli_error($connection)))
      {
