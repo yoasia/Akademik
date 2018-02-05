@@ -17,14 +17,13 @@ import Footer from './Footer';
 import Home from './Pages/Home';
 import Gym from './Pages/Gym';
 import Laundry from './Pages/Laundry';
+import Report from './Pages/Report';
 
   class User{
     constructor(props) {
         this.id = props.id;
         this.email = props.email;
         this.username = props.nickname;
-        this.name = props.name;
-        this.surname = props.surname;
         this.type = props.type;
         this.ds = props.ds;
         this.room = props.room;
@@ -110,6 +109,13 @@ class App extends React.Component {
                                     <Redirect to="/login"/>
                                 ) : (
                                     <Laundry user={self.state.user} />
+                                )
+                            )}/>
+                            <Route path="/report" render={() => (
+                                this.state.logged == false  ? (
+                                    <Redirect to="/login"/>
+                                ) : (
+                                    <Report user={self.state.user}/>
                                 )
                             )}/>
                             <Route path="/login" render={() => (

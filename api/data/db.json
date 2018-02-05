@@ -4,6 +4,7 @@
             "id": "0",
             "data": "01.10.2017",
             "id_user": 1,
+            "time": "11:12:00",
             "username": "asiasia",
             "title": "First notice",
             "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
@@ -12,6 +13,7 @@
             "ds_number":6,
             "id": "1",
             "data": "02.10.2017",
+            "time": "11:12:00",
             "id_user": 1,
             "username": "asiasia",
             "title": "Second notice",
@@ -21,6 +23,17 @@
             "ds_number":6,
             "id": "2",
             "data": "03.10.2017",
+            "time": "11:12:00",
+            "id_user": 1,
+            "username": "asiasia",
+            "title": "Third notice",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in urna vel lacus dignissim sagittis vel auctor risus. Phasellus risus mi, venenatis a leo sed, congue ultricies lacus. Phasellus vulputate quis velit id vulputate. Sed quis neque ut dui sagittis dignissim sit amet ut arcu. Duis laoreet odio non dolor condimentum finibus. Nunc in magna a nunc ullamcorper suscipit nec ac metus. Nullam et mi vehicula, dignissim enim at, eleifend elit. Sed gravida odio vel eros ultrices, sed feugiat lacus maximus. Donec pharetra lacus in tincidunt maximus. Mauris pharetra ullamcorper tellus vitae condimentum. Suspendisse id ligula semper, rhoncus ligula nec, suscipit erat. Aliquam tempus fringilla sapien, vel pharetra turpis ornare ac. Fusce a egestas metus. Integer laoreet, odio at euismod mollis, est turpis molestie elit, ut vestibulum neque sapien a quam. Curabitur luctus elit vel congue convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae"
+        },
+        {
+            "ds_number":6,
+            "id": "3",
+            "data": "03.10.2017",
+            "time": "11:12:00",
             "id_user": 1,
             "username": "asiasia",
             "title": "Third notice",
@@ -34,77 +47,77 @@
         "name": "string",
         "surname": "string",
         "type": "string",
-        "ds": "number"
+        "ds": "number",
+        "floor": "number"
     },
-    "authenticate": [{
+    "authenticate": [
+        {
             "status": true,
             "id": 1,
             "email": "asia@gmail.com",
             "nickname": "asiasia",
-            "name": "Name",
-            "surname": "Surname",
             "type": "student",
             "ds": 6,
-            "room": "200"
+            "room": "200",
+            "floor": 2
         },
         {
             "status": false
         }
     ],
-    "new_user": {
-        "status": "string",
-        "message": "string",
-        "nickname": "string",
-        "password": "strind - password in md5",
-        "index": "int",
-        "ds_number": "int",
-        "room_number": "string",
-        "user_type": "string",
-        "email": "string"
-    },
+    "defects":[
+        {
+            "id": 2,
+            "id_user":1,
+            "date":"04.02.2018",
+            "title":"Zatkany prysznic",
+            "description":"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+            "status":"in queue"
+        },
+        {
+            "id": 12,
+            "id_user":1,
+            "date":"01.02.2018",
+            "title":"Zepsuta klamka",
+            "description":"Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum",
+            "status":"done"
+        }
+    ],
     "defect": {
         "new": {
-            "status": "string",
-            "message": "string",
-            "nickname": "string",
-            "action": "string [new]",
-            "title": "string",
-            "description": "string",
-            "is_done": "boolean"
+            "title":"string",
+            "description":""
         },
-        "get": {
-            "status": "string",
-            "message": "string",
-            "content": [{
-                    "id_defect": "integer",
+        "get": [
+                 {
+                    "id": "integer",
+                    "id_user":"integer",
+                    "date":"string",
                     "title": "string",
                     "description": "string",
-                    "is_done": "boolean"
+                    "status": "boolean"
                 },
                 {
-                    "id_defect": "integer",
+                    "id": "integer",
+                    "id_user":"integer",
+                    "date":"string",
                     "title": "string",
                     "description": "string",
-                    "is_done": "boolean"
+                    "status": "boolean"
                 }
 
             ]
-
-        },
+        ,
         "remove": {
-            "status": "string",
-            "message": "string",
-            "action": "string [remove]",
-            "id_defect": "integer"
         },
-        "done": {
-            "status": "string",
-            "message": "string",
-            "id_defect": "integer",
-            "action": "string [remove]",
-            "is_done": "boolean"
+        "update": {
+            "id": "integer",
+            "id_user":"integer",
+            "date":"string",
+            "title": "string",
+            "description": "string",
+            "status": "boolean"
         }
-
     },
 
     "laundry": {
@@ -125,8 +138,8 @@
             {
                 "name": "sunday",
                 "date": "04.02.2018",
-                "hours": [{
-
+                "hours": [
+                    {
                         "user_room": "",
                         "user_id": null,
                         "editable": true
@@ -1351,6 +1364,7 @@
             }
         ]
     },
+    
     "floors":[
         {
             "ds":1,

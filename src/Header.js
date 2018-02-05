@@ -27,6 +27,7 @@ class Header extends React.Component {
             <Menu.Item name='home' as={Link} to='/' />
             <Menu.Item name='gym' as={Link} to='gym' />
             <Menu.Item name='laundry' as={Link} to='laundry'  />
+            <Menu.Item name='report defect' as={Link} to='report'  />
             <Menu.Menu position='right'>
                 <Menu.Item name='logout' as={Link} to='logout'>
                   {this.state.username}

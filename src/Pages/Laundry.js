@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Button, Segment, Grid, Header, Menu, Label } from 'semantic-ui-react';
+import { Card, Icon, Button, Segment, Grid, Header, Menu, Label, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import GridColumn from 'semantic-ui-react/dist/commonjs/collections/Grid/GridColumn';
 
@@ -86,6 +86,7 @@ class Laundry extends React.Component {
       return (
         <Grid padded className="padd" textAlign="center"> 
           <Grid.Row key={1}>
+            <Image src='../../assets/img/washer.png' size='small' wrapped />
           </Grid.Row>
           <Grid.Row key={2}>
             {dropDownElement}
