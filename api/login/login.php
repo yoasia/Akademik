@@ -21,7 +21,7 @@
             $_SESSION["status"] = true;
             $_SESSION["floor"] = getFloorNumber($room_number);
             $_SESSION["mail"] = $email;
-            $_SESSION["nickname"] = getNickname($email);
+            $_SESSION["nickname"] = getNicknameByMail($email);
             $_SESSION["type"] = "student";
             $_SESSION["room"] = $room_number;
 
