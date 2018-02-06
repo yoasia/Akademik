@@ -4,7 +4,7 @@ include '../utils.php';
 require('../includes/dbconn.php');
 
  $query = "SELECT * FROM defects";
- $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+ $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
  $json_array = array();
  if($result > 0) {
    //$result = json_encode($result);

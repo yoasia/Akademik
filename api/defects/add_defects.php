@@ -12,7 +12,7 @@ require('../includes/dbconn.php');
      $query = "INSERT INTO defects (id_user, title, description, is_done, date)
       VALUES ('$id_user', '$title', '$description', '$is_done', FROM_UNIXTIME($now))";
 
-     if(mysqli_query($connection, $query) or die(mysqli_error($connection)))
+     if(mysqli_query($mysqli, $query) or die(mysqli_error($mysqli)))
      {
        echo "true";
      }

@@ -7,7 +7,7 @@ $query = "DELETE FROM defects WHERE title='$_POST["title"]'
   AND description='$_POST["description"]'
     AND id_user='$_SESSION["id_user"]'";
     
-$result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+$result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 if($result > 0) {
   echo "true";
 } else {

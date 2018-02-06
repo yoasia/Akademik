@@ -4,7 +4,7 @@
     require('db_connect.php');
 
     $query = "SELECT COUNT(*) FROM users WHERE email='$_SESSION['email']' AND user_type='portierka'";
-    $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
     if ($result > 0) {
       $name = $_POST["name"];
@@ -30,15 +30,15 @@
         echo "Error: Room number should be digit value.";
       }
 
-      $select_db = mysqli_select_db($connection, 'project_1');
+      $select_db = mysqli_select_db($mysqli, 'project_1');
       if (!$select_db){
-          die("Database Selection Failed" . mysqli_error($connection));
+          die("Database Selection Failed" . mysqli_error($mysqli));
       }
 
       $query = "INSERT INTO `users` (name, surname, email, user_type, ds_number, room_number, nickname, password)
       VALUES ('$name', '$surname', '$email', '$user_type', '$ds_number', '$room_number', '$nickname', '$password')";
 
-      $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
+      $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     } else {
       // Redirect to login page with notification of failure
     }

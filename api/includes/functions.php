@@ -34,7 +34,7 @@ function login($email, $password)
     $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
     $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
-    $result = mysqli_query($mysqli, $query) or die(mysqli_error($connection));
+    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
     if ($result > 0) {
       return true;
