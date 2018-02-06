@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Button, Grid } from 'semantic-ui-react';
+import { Card, Icon, Button, Grid, Loader, Dimmer } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Home extends React.Component {
@@ -18,7 +18,7 @@ class Home extends React.Component {
     var downloaded = null;
     var news = null;
     var randLogin = Math.random();
-    url = "http://localhost:3000/news";
+    url = "/api/notifications/get_notifications.php";
 
     axios.get(url)
     .then(function (response) {
@@ -41,12 +41,9 @@ class Home extends React.Component {
   render() {
 
     var cardsElements = null;
-    if(this.state.downloaded && this.state.news){
-      cardsElements;
-    }
-
-    return (
-      <Grid container columns={1} stackable className="padd">
+    if(this.state.downloaded){
+      return (
+        <Grid container columns={1} stackable className="padd">
           {this.state.news.map((element, index)=>{
             return (
               <Grid.Column key={element.id}>
@@ -71,6 +68,16 @@ class Home extends React.Component {
           })}
       </Grid>
     );
+  }
+  else{
+    return (
+      <Grid container columns={1} stackable className="padd">
+         <Dimmer inverted active>
+            <Loader inverted size='big'>Loading</Loader> 
+         </Dimmer>
+      </Grid>
+  );
+  }
   }
 }
 

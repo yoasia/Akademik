@@ -69570,7 +69570,7 @@ var Home = function (_React$Component) {
       var downloaded = null;
       var news = null;
       var randLogin = Math.random();
-      url = "http://localhost:3000/news";
+      url = "/api/notifications/get_notifications.php";
 
       _axios2.default.get(url).then(function (response) {
         downloaded = true;
@@ -69590,49 +69590,61 @@ var Home = function (_React$Component) {
     value: function render() {
 
       var cardsElements = null;
-      if (this.state.downloaded && this.state.news) {
-        cardsElements;
-      }
-
-      return _react2.default.createElement(
-        _semanticUiReact.Grid,
-        { container: true, columns: 1, stackable: true, className: 'padd' },
-        this.state.news.map(function (element, index) {
-          return _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
-            { key: element.id },
-            _react2.default.createElement(
-              _semanticUiReact.Card,
-              { fluid: true },
+      if (this.state.downloaded) {
+        return _react2.default.createElement(
+          _semanticUiReact.Grid,
+          { container: true, columns: 1, stackable: true, className: 'padd' },
+          this.state.news.map(function (element, index) {
+            return _react2.default.createElement(
+              _semanticUiReact.Grid.Column,
+              { key: element.id },
               _react2.default.createElement(
-                _semanticUiReact.Card.Content,
-                null,
+                _semanticUiReact.Card,
+                { fluid: true },
                 _react2.default.createElement(
-                  _semanticUiReact.Card.Header,
+                  _semanticUiReact.Card.Content,
                   null,
-                  element.title
+                  _react2.default.createElement(
+                    _semanticUiReact.Card.Header,
+                    null,
+                    element.title
+                  ),
+                  _react2.default.createElement(
+                    _semanticUiReact.Card.Meta,
+                    null,
+                    element.data,
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'float-right' },
+                      _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
+                      element.username
+                    )
+                  )
                 ),
                 _react2.default.createElement(
-                  _semanticUiReact.Card.Meta,
-                  null,
-                  element.data,
-                  _react2.default.createElement(
-                    'div',
-                    { className: 'float-right' },
-                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
-                    element.username
-                  )
+                  _semanticUiReact.Card.Content,
+                  { extra: true },
+                  element.content
                 )
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Card.Content,
-                { extra: true },
-                element.content
               )
+            );
+          })
+        );
+      } else {
+        return _react2.default.createElement(
+          _semanticUiReact.Grid,
+          { container: true, columns: 1, stackable: true, className: 'padd' },
+          _react2.default.createElement(
+            _semanticUiReact.Dimmer,
+            { inverted: true, active: true },
+            _react2.default.createElement(
+              _semanticUiReact.Loader,
+              { inverted: true, size: 'big' },
+              'Loading'
             )
-          );
-        })
-      );
+          )
+        );
+      }
     }
   }]);
 
