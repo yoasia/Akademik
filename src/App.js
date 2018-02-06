@@ -30,6 +30,7 @@ import StudyRoom from './Pages/StudyRoom';
         this.room = props.room;
         this.floor = props.room/100;
     }
+    
   }
 
 /**
@@ -47,6 +48,7 @@ class App extends React.Component {
         };
         this.activePage = null;
         this.logout = this.logout.bind(this);
+        this.login = this.login.bind(this);
     }
 
     logout(){
@@ -56,22 +58,28 @@ class App extends React.Component {
         })
     }
 
-    componentWillMount(){
+    login(parameters){
+        this.setState({
+            logged:true,
+            user:new User(parameters)
+        })
+    }
 
+    componentWillMount(){
         let self = this;
         var url = null;
         var randLogin = Math.random();
-        url = "http://localhost:3000/authenticate?status=true"
+        var logged = false;
+        url = "/api/login/get_login_status.php"
 
         axios.get(url)
         .then(function (response) {
-            if(response.data[0].status){
-                var logged = true;
+            if(response.data.status){
+                logged = true;
                 var user = new User(response.data[0]);
                 self.setState({logged, user});
             }
             else{
-                var logged = false;
                 self.setState({logged});
             }
           console.log(response);
@@ -89,15 +97,14 @@ class App extends React.Component {
         var loginOrHome = null;
         let loaderElement = null;
         const { contextRef } = this.state
-
-        if(this.state.logged == null){
+        
+        if(this.state.logged == null)
             loaderElement = <Dimmer inverted active><Loader inverted size='big'>Loading</Loader> </Dimmer>;
-        }
+        
         if(this.state.logged)
             return (
                 <div ref={this.handleContextRef}>
                     <Segment className="no-padd">
-                        {loaderElement}
                         <Router>
                             <div className="container bottom-margin">
                                 <Header username={(this.state.user)? this.state.user.username : null }></Header>
@@ -140,7 +147,7 @@ class App extends React.Component {
                                     this.state.logged == true  ? (
                                         <Redirect to="/"/>
                                     ) : (
-                                        <Login />
+                                        <Login afterLogin={this.login}/>
                                     )
                                 )}/>
                                 <Route path="/logout" render={() => (
@@ -152,63 +159,30 @@ class App extends React.Component {
                     </Segment>
                 </div>
             )
-        else
+        else if(this.state.logged == false)
             return (
                 <div ref={this.handleContextRef}>
                     <Segment className="no-padd">
-                        {loaderElement}
-                        <Router>
-                            <div >
-                                <Route exact path="/" render={() => (
-                                    this.state.logged == false  ? (
-                                        <Redirect to="/login"/>
-                                    ) : (
-                                        <Home user={self.state.user}/>
-                                    )
-                                )}/>
-                                <Route path="/gym" render={() => (
-                                    this.state.logged == false  ? (
-                                        <Redirect to="/login"/>
-                                    ) : (
-                                        <Gym user={self.state.user}/>
-                                    )
-                                )}/>
-                                <Route path="/laundry" render={() => (
-                                    this.state.logged == false  ? (
-                                        <Redirect to="/login"/>
-                                    ) : (
-                                        <Laundry user={self.state.user} />
-                                    )
-                                )}/>
-                                <Route path="/report" render={() => (
-                                    this.state.logged == false  ? (
-                                        <Redirect to="/login"/>
-                                    ) : (
-                                        <Report user={self.state.user}/>
-                                    )
-                                )}/>
-                                <Route path="/study-room" render={() => (
-                                    this.state.logged == false  ? (
-                                        <Redirect to="/login"/>
-                                    ) : (
-                                        <StudyRoom user={self.state.user}/>
-                                    )
-                                )}/>
-                                <Route path="/login" render={() => (
-                                    this.state.logged == true  ? (
-                                        <Redirect to="/"/>
-                                    ) : (
-                                        <Login />
-                                    )
-                                )}/>
-                                <Route path="/logout" render={() => (
-                                    <Redirect to="/login" push />
-                                )}/>
-                            </div>
+                        <Router>           
+                            <div>
+                                <Redirect to="/login" push />
+                                <Route render={() => (
+                                    <Login afterLogin={this.login}/>
+                                )}  />
+                            </div>                     
                         </Router>
                     </Segment>
                 </div>
             );
+        else{
+            return (
+                <div ref={this.handleContextRef}>
+                    <Segment className="no-padd">
+                        {loaderElement}
+                    </Segment>
+                </div>
+            );
+        }
     }
 }
 

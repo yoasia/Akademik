@@ -11,9 +11,9 @@ include_once 'includes/functions.php';
 sec_session_start();
 
 
-if (isset($_POST['email'], $_POST['password'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password']; // The hashed password.
+if (isset($_GET['email'], $_GET['password'])) {
+    $email = $_GET['email'];
+    $password = $_GET['password']; // The hashed password.
  
     // Using prepared statements means that SQL injection is not possible.
     if ($stmt = $mysqli->prepare("SELECT id, email, password, nickname, ds_number, index_number, room_number, user_type  FROM users

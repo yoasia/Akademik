@@ -28,6 +28,7 @@
     "html-minify": "^0.3.2",
     "json-server": "^0.12.1",
     "konva": "^1.6.8",
+    "md5": "^2.2.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-perf": "^15.4.2",
     "react-addons-shallow-compare": "^15.6.2",
