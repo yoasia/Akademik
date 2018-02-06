@@ -34,6 +34,7 @@
                 $query = "SELECT user_type FROM users WHERE email='$email'";
                 $result_4 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                 $_SESSION["user_type"] = mysqli_fetch_assoc($result_4)["user_type"];
+                session_start();
 
                 include_once './get_login_status.php';
 
