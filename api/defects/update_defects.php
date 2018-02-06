@@ -1,6 +1,7 @@
 <?php
 
 require('../includes/dbconn.php');
+session_start();
 
 $id_defect = $_POST["id"];
 $new_title = $_POST["title"];
