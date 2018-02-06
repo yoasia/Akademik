@@ -5,8 +5,7 @@
 
   // sec_session_start(); // Our custom secure way of starting a PHP session.
   session_start();
-  $_GET['email'] = 'karol@gmail.com';
-  $_GET['p'] = md5('karol');
+
   if (isset($_GET['email'], $_GET['p'])) {
       $email = $_GET['email'];
       $password = $_GET['p'];
