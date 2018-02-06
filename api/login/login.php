@@ -3,7 +3,8 @@
   include_once '../includes/functions.php';
   include_once '../utils.php';
 
-  sec_session_start(); // Our custom secure way of starting a PHP session.
+  // sec_session_start(); // Our custom secure way of starting a PHP session.
+  session_start();
 
   if (isset($_GET['email'], $_GET['p'])) {
       $email = $_GET['email'];
@@ -34,7 +35,6 @@
                 $query = "SELECT user_type FROM users WHERE email='$email'";
                 $result_4 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                 $_SESSION["user_type"] = mysqli_fetch_assoc($result_4)["user_type"];
-                session_start();
 
                 include_once './get_login_status.php';
 

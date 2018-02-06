@@ -1,6 +1,7 @@
 <?php
 include '../utils.php';
 require('../includes/dbconn.php');
+session_start();
 
     $id_user = $_SESSION["id_user"];
     $title = $_POST["title"];
