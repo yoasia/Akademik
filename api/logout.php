@@ -18,6 +18,5 @@ setcookie(session_name(),
  
 // Destroy session 
 session_destroy();
-header('Location: ./start.php');
 
 ?>

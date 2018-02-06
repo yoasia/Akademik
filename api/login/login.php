@@ -10,7 +10,7 @@
       $email = $_GET['email'];
       $password = $_GET['p']; // The hashed password.
 
-      if (($msg = login($email, $password, $mysqli)) == true) {
+      if ((login($email, $password, $mysqli)) == true) {
           // Login success
 
           $query = "SELECT room_number from users where email='$email'";
@@ -21,18 +21,18 @@
 
             $_SESSION["status"] = true;
             $_SESSION["floor"] = getFloorNumber($room_number);
-            $_SESSION["mail"] = $email;
+            $_SESSION["email"] = $email;
             $_SESSION["nickname"] = getNicknameByMail($email);
             $_SESSION["type"] = "student";
             $_SESSION["room"] = $room_number;
             
             $query = "SELECT ds_number from users where email='$email'";
             $result_2 = mysqli_query($connection, $query) or die(mysqli_error($connection));
-            $_SESSION["ds_number"] = mysqli_fetch_assoc($result_2)["ds_number"];
+            $_SESSION["ds"] = mysqli_fetch_assoc($result_2)["ds_number"];
             
             $query = "SELECT id_user from users where email='$email'";
             $result_3 = mysqli_query($connection, $query) or die(mysqli_error($connection));
-            $_SESSION["id_user"] = mysqli_fetch_assoc($result_3)["id_user"];
+            $_SESSION["id"] = mysqli_fetch_assoc($result_3)["id_user"];
             
             include_once './get_login_staus.php';
             
@@ -42,7 +42,7 @@
 
       } else {
           // Login failed
-          echo $msg;
+          //echo $msg;
       }
   } else {
       // The correct POST variables were not sent to this page.

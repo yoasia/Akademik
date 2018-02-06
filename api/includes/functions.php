@@ -1,6 +1,7 @@
 <?php
 include_once 'config.php';
- 
+mysqli_report();
+
 function sec_session_start()
 {
     $session_name = 'sec_session_id';   // Set a custom session name
@@ -31,10 +32,9 @@ function sec_session_start()
 
 function login($email, $password, $mysqli)
 {
-    $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
     // Using prepared statements means that SQL injection is not possible.
-    if ($mysqli->prepare("SELECT id, email, password, nickname, ds_number, index_number, room_number, user_type  FROM users
+    if ($stmt = $mysqli->prepare("SELECT id_user, email, password, nickname, ds_number, index_number, room_number, user_type  FROM users
        WHERE email = ? LIMIT 1")) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
         $stmt->execute();    // Execute the prepared query.
@@ -42,7 +42,7 @@ function login($email, $password, $mysqli)
  
         // get variables from result.
         $stmt->bind_result($user_id, $email, $db_password, $nickname, $ds_number, $index_number, $room_number, $user_type);
-        $stmt->fetch();
+        $result = $stmt->fetch();
  
         if ($result->num_rows == 1) {
             // If the user exists we check if the account is locked
@@ -83,7 +83,7 @@ function login($email, $password, $mysqli)
             die("User doesn't exists");
         }
     }
-    die("Not okay");
+    die("Could not prepare query.");
 }
 
 function checkbrute($user_id, $mysqli)
