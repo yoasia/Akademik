@@ -19,11 +19,16 @@
             $room_number = mysqli_fetch_assoc($result)["room_number"];
 
             $_SESSION["status"] = true;
-            $_SESSION["floor"] = getFloorNumber($room_number);            
+            $_SESSION["floor"] = getFloorNumber($room_number);
             $_SESSION["mail"] = $email;
             $_SESSION["nickname"] = getNickname($email);
             $_SESSION["type"] = "student";
             $_SESSION["room"] = $room_number;
+
+            $query = "select ds_number from users where email='$email'";
+            $result_2 = mysqli_query($connection, $query) or die(mysqli_error($connection));
+            $_SESSION["ds_number"] = mysqli_fetch_assoc($result_2)["ds_number"];
+
           } else {
             echo "Login ERROR: failed to parse the room number";
           }
