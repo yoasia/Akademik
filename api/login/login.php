@@ -5,14 +5,7 @@
 
   sec_session_start(); // Our custom secure way of starting a PHP session.
 
-  $_GET['email'] = "asia@gmail.com";
-
-  $_GET['p'] = md5('asia');
-
   if (isset($_GET['email'], $_GET['p'])) {
-
-      $email = $_GET['email'];
-      $password = $_GET['p']; // The hashed password.
 
       if (login($email, $password) == true) {
           // Login success
