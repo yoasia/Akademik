@@ -22,13 +22,13 @@ import StudyRoom from './Pages/StudyRoom';
 
   class User{
     constructor(props) {
-        this.id = props.id;
-        this.email = props.email;
+        this.id = props.id_user;
+        this.email = props.mail;
         this.username = props.nickname;
         this.type = props.type;
-        this.ds = props.ds;
+        this.ds = props.ds_number;
         this.room = props.room;
-        this.floor = props.room/100;
+        this.floor = props.floor;
     }
     
   }

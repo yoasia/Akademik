@@ -24486,13 +24486,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var User = function User(props) {
     _classCallCheck(this, User);
 
-    this.id = props.id;
-    this.email = props.email;
+    this.id = props.id_user;
+    this.email = props.mail;
     this.username = props.nickname;
     this.type = props.type;
-    this.ds = props.ds;
+    this.ds = props.ds_number;
     this.room = props.room;
-    this.floor = props.room / 100;
+    this.floor = props.floor;
 };
 
 /**
@@ -68932,6 +68932,7 @@ var Login = function (_React$Component) {
           logged = true;
           var userData = response.data;
           self.setState({ logged: logged, userData: userData });
+          self.state.afterLogin(userData);
         } else {
           msg = response.data;
           self.setState({ logged: logged, msg: msg });

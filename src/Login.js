@@ -45,6 +45,7 @@ class Login extends React.Component {
               logged = true;
               var userData = response.data;
               self.setState({logged, userData});
+              self.state.afterLogin(userData);
           }
           else{
               msg = response.data;
