@@ -1,5 +1,5 @@
 <?php
-include_once 'psl-config.php';
+include_once 'config.php';
  
 function sec_session_start()
 {
@@ -31,10 +31,11 @@ function sec_session_start()
 
 function login($email, $password, $mysqli)
 {
+    $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
     // Using prepared statements means that SQL injection is not possible.
-    if ($stmt = $mysqli->prepare("SELECT id, email, password, nickname, ds_number, index_number, room_number, user_type  FROM users
-       WHERE email = ?
-        LIMIT 1")) {
+    if ($mysqli->prepare("SELECT id, email, password, nickname, ds_number, index_number, room_number, user_type  FROM users
+       WHERE email = ? LIMIT 1")) {
         $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
@@ -74,16 +75,15 @@ function login($email, $password, $mysqli)
                 $now = time();
                 // $mysqli->query("INSERT INTO login_attempts(user_id, time)
                 //                 VALUES ('$user_id', '$now')");
-                echo "Incorrect password";
-                return false;
+                die("Incorrect password");
             }
             
         } else {
             // No user exists.
-            echo "User doesn't exists";
-            return false;
+            die("User doesn't exists");
         }
     }
+    die("Not okay");
 }
 
 function checkbrute($user_id, $mysqli)

@@ -2,14 +2,15 @@
   include_once '../includes/dbconn.php';
   include_once '../includes/functions.php';
   include_once '../utils.php';
-
+  
   sec_session_start(); // Our custom secure way of starting a PHP session.
 
   if (isset($_GET['email'], $_GET['p'])) {
+
       $email = $_GET['email'];
       $password = $_GET['p']; // The hashed password.
 
-      if (login($email, $password, $mysqli) == true) {
+      if (($msg = login($email, $password, $mysqli)) == true) {
           // Login success
 
           $query = "select room_number from users where email='$email'";
@@ -24,12 +25,23 @@
             $_SESSION["nickname"] = getNickname($email);
             $_SESSION["type"] = "student";
             $_SESSION["room"] = $room_number;
+            
+            $return["status"] = true;
+            $return["floor"] = getFloorNumber($room_number);            
+            $return["mail"] = $email;
+            $return["nickname"] = getNickname($email);
+            $return["type"] = "student";
+            $return["room"] = $room_number;
+        
+            print json_encode($return, JSON_PRETTY_PRINT);
+
           } else {
             echo "Login ERROR: failed to parse the room number";
           }
 
       } else {
           // Login failed
+          echo $msg;
       }
   } else {
       // The correct POST variables were not sent to this page.
