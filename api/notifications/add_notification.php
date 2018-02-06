@@ -9,7 +9,7 @@ session_start();
     $now = time();
 
     $query = "INSERT INTO notifications (id_user, content, date, time, title, ds_number)
-    VALUES ('$id_user', '$content', FROM_UNIXTIME($now), NOW(), '$title', $_SESSION["ds_number"])";
+    VALUES ('{$id_user}', '{$content}', FROM_UNIXTIME({$now}), NOW(), '{$title}', '{$_SESSION["ds_number"]}')";
 
     if(mysqli_query($mysqli, $query) or die(mysqli_error($mysqli)))
     {

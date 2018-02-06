@@ -11,7 +11,7 @@
       $password = $_GET['p'];
       if (login($email, $password) == true) {
           // Login success
-          $query = "SELECT room_number FROM users WHERE email='$email'";
+          $query = "SELECT room_number FROM users WHERE email='{$email}'";
           $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 
           if ($result > 0) {
@@ -24,15 +24,15 @@
                 $_SESSION["type"] = "student";
                 $_SESSION["room"] = $room_number;
 
-                $query = "SELECT ds_number FROM users WHERE email='$email'";
+                $query = "SELECT ds_number FROM users WHERE email='{$email}'";
                 $result_2 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                 $_SESSION["ds_number"] = mysqli_fetch_assoc($result_2)["ds_number"];
 
-                $query = "SELECT id_user FROM users WHERE email='$email'";
+                $query = "SELECT id_user FROM users WHERE email='{$email}'";
                 $result_3 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                 $_SESSION["id_user"] = mysqli_fetch_assoc($result_3)["id_user"];
 
-                $query = "SELECT user_type FROM users WHERE email='$email'";
+                $query = "SELECT user_type FROM users WHERE email='{$email}'";
                 $result_4 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
                 $_SESSION["user_type"] = mysqli_fetch_assoc($result_4)["user_type"];
 
