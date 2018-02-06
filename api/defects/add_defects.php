@@ -9,7 +9,7 @@ require('../includes/dbconn.php');
      $now = time();
 
 
-     $query = "INSERT INTO defects (id_user, title, description, is_done)
+     $query = "INSERT INTO defects (id_user, title, description, is_done, date)
       VALUES ('$id_user', '$title', '$description', '$is_done', FROM_UNIXTIME($now))";
 
      if(mysqli_query($connection, $query) or die(mysqli_error($connection)))
