@@ -32,7 +32,6 @@ function sec_session_start()
 
 function login($email, $password, $mysqli)
 {
-
     // Using prepared statements means that SQL injection is not possible.
     if ($stmt = $mysqli->prepare("SELECT id_user, email, password, nickname, ds_number, index_number, room_number, user_type  FROM users
        WHERE email = ? LIMIT 1")) {
@@ -43,15 +42,15 @@ function login($email, $password, $mysqli)
         // get variables from result.
         $stmt->bind_result($user_id, $email, $db_password, $nickname, $ds_number, $index_number, $room_number, $user_type);
         $result = $stmt->fetch();
- 
-        if ($result->num_rows == 1) {
+
+        if ($result == 1) {
             // If the user exists we check if the account is locked
             // from too many login attempts
 
             // Check if the password in the database matches
             // the password the user submitted. We are using
             // the password_verify function to avoid timing attacks.
-            if (password_verify($password, $db_password)) {
+            if ($password == $db_password) {
                 // Password is correct!
                 // Get the user-agent string of the user.
                 $user_browser = $_SERVER['HTTP_USER_AGENT'];
