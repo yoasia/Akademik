@@ -3,7 +3,10 @@
 include '../utils.php';
 require('../includes/dbconn.php');
 
-$query = "DELETE FROM defects WHERE title='kran' AND description='zepsul sie kran' AND id_user='2'";
+$query = "DELETE FROM defects WHERE title='$_POST["title"]'
+  AND description='$_POST["description"]'
+    AND id_user='$_SESSION["id_user"]'";
+    
 $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 if($result > 0) {
   echo "true";

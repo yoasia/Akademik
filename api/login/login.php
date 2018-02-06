@@ -12,7 +12,7 @@
       if (login($email, $password, $mysqli) == true) {
           // Login success
 
-          $query = "select room_number from users where email='$email'";
+          $query = "SELECT room_number from users where email='$email'";
           $result = mysqli_query($connection, $query) or die(mysqli_error($connection));
 
           if ($result > 0) {
@@ -25,9 +25,13 @@
             $_SESSION["type"] = "student";
             $_SESSION["room"] = $room_number;
 
-            $query = "select ds_number from users where email='$email'";
+            $query = "SELECT ds_number from users where email='$email'";
             $result_2 = mysqli_query($connection, $query) or die(mysqli_error($connection));
             $_SESSION["ds_number"] = mysqli_fetch_assoc($result_2)["ds_number"];
+
+            $query = "SELECT id_user from users where email='$email'";
+            $result_3 = mysqli_query($connection, $query) or die(mysqli_error($connection));
+            $_SESSION["id_user"] = mysqli_fetch_assoc($result_3)["id_user"];
 
           } else {
             echo "Login ERROR: failed to parse the room number";
