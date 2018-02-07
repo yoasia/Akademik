@@ -69570,6 +69570,7 @@ var Home = function (_React$Component) {
       news: [],
       user: props.user,
       modalOpen: false,
+      newPost: false,
       currentPost: {
         title: null,
         description: null
@@ -69577,12 +69578,14 @@ var Home = function (_React$Component) {
     };
 
     _this.editPost = _this.openEditModal.bind(_this);
-    _this.deletePost = _this.deletePost.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
     _this.openEditModal = _this.openEditModal.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.getData = _this.getData.bind(_this);
+    _this.openNewModal = _this.openNewModal.bind(_this);
+    _this.newPost = _this.newPost.bind(_this);
+    _this.deletePost = _this.deletePost.bind(_this);
     return _this;
   }
 
@@ -69607,6 +69610,29 @@ var Home = function (_React$Component) {
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.getData();
+    }
+  }, {
+    key: 'newPost',
+    value: function newPost() {
+      var self = this;
+      var title = this.state.currentPost.title;
+      var content = this.state.currentPost.content;
+      var params = new URLSearchParams();
+      params.append('title', title);
+      params.append('content', content);
+
+      _axios2.default.post("/api/notifications/add_notification.php", params).then(function (response) {
+        if (response.data.status) {
+          self.getData();
+        } else {
+          console.log("Something went wrong. Could not publicate new post.");
+        }
+
+        self.closeModal();
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   }, {
     key: 'getData',
@@ -69640,7 +69666,14 @@ var Home = function (_React$Component) {
   }, {
     key: 'closeModal',
     value: function closeModal() {
-      this.setState({ modalOpen: false });
+      this.setState({
+        modalOpen: false,
+        newPost: false,
+        currentPost: {
+          title: null,
+          description: null
+        }
+      });
     }
   }, {
     key: 'update',
@@ -69667,8 +69700,33 @@ var Home = function (_React$Component) {
       });
     }
   }, {
+    key: 'openNewModal',
+    value: function openNewModal(event, data) {
+      this.setState({
+        open: true,
+        newPost: true
+      });
+    }
+  }, {
     key: 'deletePost',
-    value: function deletePost(event, data) {}
+    value: function deletePost(event, data) {
+      var self = this;
+      var id_notification = data.id_notification;
+
+      var params = new URLSearchParams();
+      params.append('id', id_notification);
+
+      _axios2.default.post("/api/notifications/remove_notification.php", params).then(function (response) {
+        if (response.data.status) {
+          self.getData();
+        } else {
+          console.log("Something went wrong. Could not add new report.");
+        }
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -69713,6 +69771,41 @@ var Home = function (_React$Component) {
             )
           )
         );
+      } else if (this.state.open && this.state.newPost) {
+        modalElement = _react2.default.createElement(
+          _semanticUiReact.Modal,
+          { dimmer: 'blurring',
+            open: true,
+            onClose: this.closeModal,
+            size: 'small'
+          },
+          _react2.default.createElement(
+            _semanticUiReact.Modal.Header,
+            null,
+            'New post'
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal.Content,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Form,
+              { name: 'new', onSubmit: self.handleSubmit },
+              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
+                value: self.state.currentPost.title,
+                onChange: self.handleChange,
+                name: 'title' }),
+              _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Content', placeholder: '...',
+                value: self.state.currentPost.description,
+                onChange: self.handleChange,
+                name: 'content' }),
+              _react2.default.createElement(
+                _semanticUiReact.Form.Button,
+                null,
+                'Submit'
+              )
+            )
+          )
+        );
       }
 
       if (this.state.downloaded && this.state.news) {
@@ -69720,12 +69813,25 @@ var Home = function (_React$Component) {
           _semanticUiReact.Grid,
           { container: true, columns: 1, stackable: true, className: 'padd' },
           _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
+            _semanticUiReact.Grid.Row,
             { key: 0 },
             _react2.default.createElement(
-              _semanticUiReact.Header,
-              { as: 'h1' },
-              'News'
+              _semanticUiReact.Grid.Column,
+              { floated: 'left', verticalAlign: 'middle', mobile: 10, tablet: 4, computer: 2, key: 1 },
+              _react2.default.createElement(
+                _semanticUiReact.Header,
+                { as: 'h1' },
+                'News'
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Grid.Column,
+              { floated: 'right', mobile: 2, tablet: 2, computer: 1, key: 2, relaxed: 'very' },
+              _react2.default.createElement(
+                _semanticUiReact.Button,
+                { color: 'green', icon: true, onClick: this.openNewModal },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: 'plus' })
+              )
             )
           ),
           this.state.news.map(function (element, index) {
@@ -69747,7 +69853,7 @@ var Home = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                       _semanticUiReact.Dropdown.Item,
-                      { id_post: element.id_notification, onClick: _this2.deletePost },
+                      { id_notification: element.id_notification, onClick: _this2.deletePost },
                       'Delete post'
                     )
                   )
@@ -69756,7 +69862,7 @@ var Home = function (_React$Component) {
             }
 
             return _react2.default.createElement(
-              _semanticUiReact.Grid.Column,
+              _semanticUiReact.Grid.Row,
               { key: element.id_notification },
               modalElement,
               _react2.default.createElement(
@@ -69777,12 +69883,9 @@ var Home = function (_React$Component) {
                     element.date,
                     '  ',
                     element.time,
-                    _react2.default.createElement(
-                      'div',
-                      { className: 'float-right' },
-                      _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
-                      element.nickname
-                    )
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
+                    element.nickname
                   )
                 ),
                 _react2.default.createElement(
@@ -73476,12 +73579,11 @@ var Report = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Column,
-                        { verticalAlign: 'middle', mobile: 3, tablet: 2, computer: 1, key: 2 },
+                        { mobile: 3, tablet: 2, computer: 1, key: 2 },
                         _react2.default.createElement(
                             _semanticUiReact.Button,
-                            { icon: true, onClick: this.openNewModal },
-                            _react2.default.createElement(_semanticUiReact.Icon, { color: 'green', name: 'plus' }),
-                            'New'
+                            { color: 'green', icon: true, onClick: this.openNewModal },
+                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'plus' })
                         )
                     )
                 ),

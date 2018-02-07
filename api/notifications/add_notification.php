@@ -13,10 +13,10 @@ session_start();
 
     if(mysqli_query($mysqli, $query) or die(mysqli_error($mysqli)))
     {
-      echo "true";
+      echo '{"status":true}';
     }
     else
     {
-      echo "false";
+      echo '{"status":false}';
     }
  ?>

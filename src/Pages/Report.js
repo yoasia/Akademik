@@ -245,10 +245,9 @@ class Report extends React.Component {
                             Your reports 
                         </Header>
                     </Grid.Column>
-                    <Grid.Column verticalAlign="middle" mobile={3} tablet={2} computer={1} key={2}>
-                        <Button icon onClick={this.openNewModal}> 
-                            <Icon color="green" name='plus' />
-                            New
+                    <Grid.Column mobile={3} tablet={2} computer={1} key={2}>
+                        <Button color="green"  icon onClick={this.openNewModal}> 
+                            <Icon name='plus' />
                         </Button>
                     </Grid.Column>
                 </Grid.Row>
