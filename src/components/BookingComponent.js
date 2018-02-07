@@ -7,7 +7,7 @@ class BookingComponent extends React.Component {
     super(props);
     this.state = {
       user:props.user,
-      tablename:props.tablename,
+      type:props.tablename,
       params:props.params,
       downloaded:false,
       data:[],
@@ -18,11 +18,11 @@ class BookingComponent extends React.Component {
   
   componentDidMount() {
     if(this.state.user)
-      this.getData(this.state.tablename, this.state.params);
+      this.getData(this.state.type, this.state.params);
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(nextProps.tablename != this.state.tablename || nextProps.params != this.state.params)
+    if(nextProps.tablename != this.state.type || nextProps.params != this.state.params)
       this.getData(nextProps.tablename, nextProps.params);
   }
 
@@ -49,25 +49,29 @@ class BookingComponent extends React.Component {
     var downloaded = false;
     var data = null;
     var hours = null;
-  
-    axios.get("http://localhost:3000/"+tablename, {
-      // params: params
-      params: {}
-    })
-    .then(function (response) {
-      downloaded = true;
-        if(response.data){
-            data = response.data;
-            self.setState({downloaded, data});
-        }
-        else{
-            self.setState({downloaded});
-        }
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    var url = null;
+
+    if(this.state.type == "gym"){
+      url = "/api/gym_lock/get_gym_lock.php"
+    }
+    if(url)
+      axios.get(url, {
+        params: params
+      })
+      .then(function (response) {
+        downloaded = true;
+          if(response.data){
+              data = response.data;
+              self.setState({downloaded, data});
+          }
+          else{
+              self.setState({downloaded});
+          }
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
