@@ -37,6 +37,7 @@ function getFloorNumber($room_number) {
 }
 
 function getHours() {
+  $hours = [];
   $hours[0] = "6:00";
   $hours[1] = "7:00";
   $hours[2] = "8:00";

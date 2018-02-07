@@ -4,7 +4,7 @@ require('../includes/dbconn.php');
 session_start();
 
 ///////////////////////////////////////////
-$_GET["ds_number"] = 2;
+$_GET["ds_number"] = 6;
 $_GET["floor"] = 3;
 ///////////////////////////////////////////
 
@@ -18,7 +18,7 @@ $gym->ds_number = $ds_number;
 $gym->hours = $actual_hours;
 
 $gym->days = array();
-$days->hours = array(array());
+$days = array();
 
 for ($day_index = 0; $day_index < 7; $day_index++) {
   if ($day_index != 0) {
@@ -36,8 +36,10 @@ for ($day_index = 0; $day_index < 7; $day_index++) {
 
     $query = "SELECT id_lock, id_user FROM gym_lock
       WHERE date='{$actual_date}' AND floor={$floor} AND ds_number={$ds_number} AND time='{$hour_dbFormat}'";
+    
     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
     $parsed_result = mysqli_fetch_assoc($result);
+
 
     $id_user = $parsed_result["id_user"];
     $id_lock = $parsed_result["id_lock"];
@@ -51,6 +53,7 @@ for ($day_index = 0; $day_index < 7; $day_index++) {
       $parsed_result_2 = mysqli_fetch_assoc($result_2);
 
       $room_number = $parsed_result_2["room_number"];
+      $parsed_result->room = $room_number;
     }
 
     $hours->id = $id_lock;
