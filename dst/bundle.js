@@ -11143,7 +11143,7 @@ var BookingComponent = function (_React$Component) {
 
     _this.state = {
       user: props.user,
-      type: props.tablename,
+      tablename: props.tablename,
       params: props.params,
       downloaded: false,
       data: []
@@ -11156,12 +11156,12 @@ var BookingComponent = function (_React$Component) {
   _createClass(BookingComponent, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (this.state.user) this.getData(this.state.type, this.state.params);
+      if (this.state.user) this.getData(this.state.tablename, this.state.params);
     }
   }, {
     key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps, nextState) {
-      if (nextProps.tablename != this.state.type || nextProps.params != this.state.params) this.getData(nextProps.tablename, nextProps.params);
+      if (nextProps.tablename != this.state.tablename || nextProps.params != this.state.params) this.getData(nextProps.tablename, nextProps.params);
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -11196,8 +11196,8 @@ var BookingComponent = function (_React$Component) {
       var hours = null;
       var url = null;
 
-      if (this.state.type == "gym") {
-        url = "/api/gym_lock/get_gym_lock.php";
+      if (this.state.tablename == "gym") {
+        url = "/api/booking/get.php";
       }
       if (url) _axios2.default.get(url, {
         params: params
@@ -70755,7 +70755,13 @@ var Gym = function (_React$Component) {
             'Gym schedule'
           )
         ),
-        _react2.default.createElement(_BookingComponent2.default, { user: this.state.user, tablename: "gym", params: { floor: this.state.user.floor } })
+        _react2.default.createElement(_BookingComponent2.default, {
+          user: this.state.user,
+          tablename: "gym_lock",
+          params: {
+            floor: this.state.user.floor,
+            tablename: "gym_lock"
+          } })
       );else return null;
     }
   }]);
@@ -75425,7 +75431,14 @@ var Laundry = function (_React$Component) {
           { key: 3 },
           dropDownElement
         ),
-        _react2.default.createElement(_BookingComponent2.default, { user: this.state.user, tablename: "laundry", params: { floor: this.state.user.floor, ds_number: this.state.user.ds, id_user: this.state.user.id } })
+        _react2.default.createElement(_BookingComponent2.default, {
+          user: this.state.user,
+          tablename: "laundry",
+          params: {
+            floor: this.state.user.floor,
+            ds_number: this.state.user.ds,
+            id_user: this.state.user.id
+          } })
       );else return null;
     }
   }]);

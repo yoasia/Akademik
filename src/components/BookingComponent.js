@@ -7,7 +7,7 @@ class BookingComponent extends React.Component {
     super(props);
     this.state = {
       user:props.user,
-      type:props.tablename,
+      tablename:props.tablename,
       params:props.params,
       downloaded:false,
       data:[],
@@ -18,11 +18,11 @@ class BookingComponent extends React.Component {
   
   componentDidMount() {
     if(this.state.user)
-      this.getData(this.state.type, this.state.params);
+      this.getData(this.state.tablename, this.state.params);
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(nextProps.tablename != this.state.type || nextProps.params != this.state.params)
+    if(nextProps.tablename != this.state.tablename || nextProps.params != this.state.params)
       this.getData(nextProps.tablename, nextProps.params);
   }
 
@@ -51,8 +51,8 @@ class BookingComponent extends React.Component {
     var hours = null;
     var url = null;
 
-    if(this.state.type == "gym"){
-      url = "/api/gym_lock/get_gym_lock.php"
+    if(this.state.tablename == "gym"){
+      url = "/api/booking/get.php"
     }
     if(url)
       axios.get(url, {

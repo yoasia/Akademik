@@ -94,7 +94,16 @@ class Laundry extends React.Component {
           <Grid.Row key={3}>
             {dropDownElement}
           </Grid.Row>
-          <BookingComponent user={this.state.user} tablename={"laundry"} params={{floor:this.state.user.floor, ds_number:this.state.user.ds, id_user:this.state.user.id}}></BookingComponent>
+          <BookingComponent 
+          user={this.state.user} 
+          tablename={"laundry"} 
+          params={{
+            floor:this.state.user.floor, 
+            ds_number:this.state.user.ds, 
+            id_user:this.state.user.id
+            }
+          }>
+          </BookingComponent>
         </Grid>
       );
     else

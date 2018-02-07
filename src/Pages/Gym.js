@@ -29,7 +29,15 @@ class Gym extends React.Component {
           <Grid.Row key={2}>
             <Header as="h1">Gym schedule</Header>
           </Grid.Row>
-          <BookingComponent user={this.state.user} tablename={"gym"} params={{floor:this.state.user.floor}}></BookingComponent>
+          <BookingComponent 
+          user={this.state.user} 
+          tablename={"gym_lock"} 
+          params={{
+            floor:this.state.user.floor, 
+            tablename:"gym_lock"
+            }
+          }>
+          </BookingComponent>
         </Grid>
       );
     else

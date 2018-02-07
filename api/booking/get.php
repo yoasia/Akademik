@@ -7,6 +7,7 @@ session_start();
 // $_GET["ds_number"] = 2;
 // $_GET["floor"] = 3;
 ///////////////////////////////////////////
+
 $tablename = $_GET["tablename"];
 $actual_date = date('Y-m-d');
 $actual_hours = getHours();

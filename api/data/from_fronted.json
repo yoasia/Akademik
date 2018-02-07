@@ -30,8 +30,7 @@
   "laundry_gym_silence_update":{
     "id":"integer",
     "tablename":"string",
-    "user_room": "string",
-    "user_id": "integer"
+    "action":"string ['book'|'cancell']"
   },
   "news_get":{
   },
