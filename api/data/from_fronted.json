@@ -24,13 +24,12 @@
   },
   "laundry_gym_silence_get":{
     "tablename":"string",
-    "ds_number": "integer",
     "floor": "integer [optional]"
   },
   "laundry_gym_silence_update":{
     "id":"integer",
     "tablename":"string",
-    "action":"string ['book'|'cancell']"
+    "action":"string ['book'|'cancel']"
   },
   "news_get":{
   },

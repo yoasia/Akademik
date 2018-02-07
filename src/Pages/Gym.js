@@ -33,7 +33,7 @@ class Gym extends React.Component {
           user={this.state.user} 
           tablename={"gym_lock"} 
           params={{
-            floor:this.state.user.floor, 
+            floor:1, 
             tablename:"gym_lock"
             }
           }>

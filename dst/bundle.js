@@ -70759,7 +70759,7 @@ var Gym = function (_React$Component) {
           user: this.state.user,
           tablename: "gym_lock",
           params: {
-            floor: this.state.user.floor,
+            floor: 1,
             tablename: "gym_lock"
           } })
       );else return null;
@@ -75374,7 +75374,7 @@ var Laundry = function (_React$Component) {
       var floors = null;
       var floorSelectOptions = null;
 
-      _axios2.default.get("\api\dorm_info.php").then(function (response) {
+      _axios2.default.get("/api/dorm_info.php").then(function (response) {
         downloaded_floors = true;
         if (response.data) {
           floors = response.data["0"].floors;
@@ -75436,8 +75436,7 @@ var Laundry = function (_React$Component) {
           tablename: "laundry",
           params: {
             floor: this.state.user.floor,
-            ds_number: this.state.user.ds,
-            id_user: this.state.user.id
+            tablename: "laundry_lock"
           } })
       );else return null;
     }
@@ -76041,7 +76040,12 @@ var StudyRoom = function (_React$Component) {
                         'Study Room schedule'
                     )
                 ),
-                _react2.default.createElement(_BookingComponent2.default, { user: this.state.user, tablename: "silence_room", params: { ds_number: this.state.user.ds, floor: this.state.user.floor } })
+                _react2.default.createElement(_BookingComponent2.default, { user: this.state.user,
+                    tablename: "silence_room",
+                    params: {
+                        floor: this.state.user.floor,
+                        tablename: "silence_room"
+                    } })
             );else return null;
         }
     }]);

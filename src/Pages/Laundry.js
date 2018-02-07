@@ -42,7 +42,7 @@ class Laundry extends React.Component {
     var floors = null;
     var floorSelectOptions = null;
 
-    axios.get("\api\dorm_info.php")
+    axios.get("/api/dorm_info.php")
     .then(function (response) {
       downloaded_floors = true;
         if(response.data){
@@ -98,11 +98,9 @@ class Laundry extends React.Component {
           user={this.state.user} 
           tablename={"laundry"} 
           params={{
-            floor:this.state.user.floor, 
-            ds_number:this.state.user.ds, 
-            id_user:this.state.user.id
-            }
-          }>
+            floor:this.state.user.floor,
+            tablename:"laundry_lock"
+          }}>
           </BookingComponent>
         </Grid>
       );

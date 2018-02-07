@@ -26,7 +26,13 @@ class StudyRoom extends React.Component {
                 <Grid.Row key={2}>
                     <Header as="h1">Study Room schedule</Header>
                 </Grid.Row>
-                <BookingComponent user={this.state.user} tablename={"silence_room"} params={{ds_number:this.state.user.ds, floor:this.state.user.floor}}></BookingComponent>
+                <BookingComponent user={this.state.user} 
+                tablename={"silence_room"} 
+                params={{
+                    floor:this.state.user.floor,
+                    tablename:"silence_room"
+                }}>
+                </BookingComponent>
             </Grid>
             );
         else
