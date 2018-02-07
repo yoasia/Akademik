@@ -73061,6 +73061,7 @@ var Report = function (_React$Component) {
             downloaded: false,
             user_reports: [],
             open: false,
+            newReport: false,
             currentReportIndex: null,
             currentReport: {
                 title: null,
@@ -73068,7 +73069,8 @@ var Report = function (_React$Component) {
             }
         };
         _this.getData = _this.getData.bind(_this);
-        _this.editReport = _this.editReport.bind(_this);
+        _this.openEditModal = _this.openEditModal.bind(_this);
+        _this.openNewModal = _this.openNewModal.bind(_this);
         _this.removeReport = _this.removeReport.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.close = _this.close.bind(_this);
@@ -73088,9 +73090,38 @@ var Report = function (_React$Component) {
         }
     }, {
         key: 'handleSubmit',
-        value: function handleSubmit() {
+        value: function handleSubmit(event, data) {
             var self = this;
-            var sended = false;
+
+            if (data.name == "new") this.addReport();else if (data.name == "update") this.update();
+        }
+    }, {
+        key: 'addReport',
+        value: function addReport(params) {
+            var self = this;
+            var title = this.state.currentReport.title;
+            var description = this.state.currentReport.description;
+            var params = new URLSearchParams();
+            params.append('title', title);
+            params.append('description', description);
+
+            _axios2.default.post("/api/defects/add_defects.php", params).then(function (response) {
+                if (response.data.status) {
+                    self.getData();
+                } else {
+                    console.log("Something went wrong. Could not add new report.");
+                }
+
+                self.close();
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'update',
+        value: function update() {
+            var self = this;
             var id = this.state.user_reports[this.state.currentReportIndex].id_defect;
             var title = this.state.currentReport.title;
             var description = this.state.currentReport.description;
@@ -73123,7 +73154,8 @@ var Report = function (_React$Component) {
                 currentReport: {
                     title: null,
                     description: null
-                } });
+                },
+                newReport: false });
         }
     }, {
         key: 'componentDidMount',
@@ -73131,12 +73163,20 @@ var Report = function (_React$Component) {
             this.getData();
         }
     }, {
-        key: 'editReport',
-        value: function editReport(event, data) {
+        key: 'openEditModal',
+        value: function openEditModal(event, data) {
             this.setState({
                 open: true,
                 currentReportIndex: data.index,
                 currentReport: Object.assign({}, this.state.user_reports[data.index])
+            });
+        }
+    }, {
+        key: 'openNewModal',
+        value: function openNewModal(event, data) {
+            this.setState({
+                open: true,
+                newReport: true
             });
         }
     }, {
@@ -73172,10 +73212,86 @@ var Report = function (_React$Component) {
             var _this2 = this;
 
             var self = this;
+            var modalElement = null;
+            var modalOpened = self.state.open && self.state.currentReportIndex != null;
+            modalOpened = modalOpened || self.state.open && self.state.newReport;
+
+            if (this.state.open && this.state.currentReportIndex) {
+                modalElement = _react2.default.createElement(
+                    _semanticUiReact.Modal,
+                    { dimmer: 'blurring',
+                        open: modalOpened,
+                        onClose: this.close,
+                        size: 'small'
+                    },
+                    _react2.default.createElement(
+                        _semanticUiReact.Modal.Header,
+                        null,
+                        'Edit defect report'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Modal.Content,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Form,
+                            { name: 'update', onSubmit: self.handleSubmit },
+                            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
+                                value: self.state.currentReport.title,
+                                onChange: self.handleChange,
+                                name: 'title' }),
+                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Tell us more...',
+                                value: self.state.currentReport.description,
+                                onChange: self.handleChange,
+                                name: 'description' }),
+                            _react2.default.createElement(
+                                _semanticUiReact.Form.Button,
+                                null,
+                                'Submit'
+                            )
+                        )
+                    )
+                );
+            } else if (this.state.open && this.state.newReport) {
+                modalElement = _react2.default.createElement(
+                    _semanticUiReact.Modal,
+                    { dimmer: 'blurring',
+                        open: modalOpened,
+                        onClose: this.close,
+                        size: 'small'
+                    },
+                    _react2.default.createElement(
+                        _semanticUiReact.Modal.Header,
+                        null,
+                        'New defect report'
+                    ),
+                    _react2.default.createElement(
+                        _semanticUiReact.Modal.Content,
+                        null,
+                        _react2.default.createElement(
+                            _semanticUiReact.Form,
+                            { name: 'new', onSubmit: self.handleSubmit },
+                            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
+                                value: self.state.currentReport.title,
+                                onChange: self.handleChange,
+                                name: 'title' }),
+                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Tell us more...',
+                                value: self.state.currentReport.description,
+                                onChange: self.handleChange,
+                                name: 'description' }),
+                            _react2.default.createElement(
+                                _semanticUiReact.Form.Button,
+                                null,
+                                'Submit'
+                            )
+                        )
+                    )
+                );
+            }
 
             if (this.state.downloaded) return _react2.default.createElement(
                 _semanticUiReact.Grid,
                 { padded: true, className: 'padd', textAlign: 'center' },
+                modalElement,
                 _react2.default.createElement(
                     _semanticUiReact.Grid.Row,
                     { key: 1 },
@@ -73195,8 +73311,7 @@ var Report = function (_React$Component) {
                     { key: 3 },
                     _react2.default.createElement(
                         _semanticUiReact.Button,
-                        { basic: true, icon: true },
-                        ' ',
+                        { basic: true, icon: true, onClick: this.openNewModal },
                         _react2.default.createElement(_semanticUiReact.Icon, { color: 'green', name: 'plus' }),
                         'New Report'
                     )
@@ -73211,7 +73326,6 @@ var Report = function (_React$Component) {
                             var status = element.is_done;
                             var iconListElement = null;
                             var editButtonElement = null;
-                            var modalOpened = self.state.open && index == self.state.currentReportIndex;
                             if (status == "0") {
                                 iconListElement = _react2.default.createElement(_semanticUiReact.List.Icon, {
                                     name: 'hourglass half',
@@ -73225,10 +73339,10 @@ var Report = function (_React$Component) {
                                         basic: true,
                                         icon: true,
                                         color: 'blue',
-                                        onClick: _this2.editReport,
+                                        onClick: _this2.openEditModal,
                                         index: index
                                     },
-                                    _react2.default.createElement(_semanticUiReact.Icon, { color: true, green: true, name: 'edit' })
+                                    _react2.default.createElement(_semanticUiReact.Icon, { color: 'blue', name: 'edit' })
                                 );
                             } else {
                                 iconListElement = _react2.default.createElement(_semanticUiReact.List.Icon, {
@@ -73240,7 +73354,7 @@ var Report = function (_React$Component) {
 
                             return _react2.default.createElement(
                                 _semanticUiReact.List.Item,
-                                null,
+                                { key: index },
                                 _react2.default.createElement(
                                     _semanticUiReact.List.Content,
                                     { key: 2, floated: 'right' },
@@ -73248,7 +73362,7 @@ var Report = function (_React$Component) {
                                     _react2.default.createElement(
                                         _semanticUiReact.Button,
                                         { basic: true, color: 'red', icon: true },
-                                        _react2.default.createElement(_semanticUiReact.Icon, { color: true, green: true, name: 'close' })
+                                        _react2.default.createElement(_semanticUiReact.Icon, { name: 'close' })
                                     )
                                 ),
                                 iconListElement,
@@ -73264,40 +73378,6 @@ var Report = function (_React$Component) {
                                         _semanticUiReact.List.Description,
                                         { as: 'a' },
                                         element.date
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _semanticUiReact.Modal,
-                                    { dimmer: 'blurring',
-                                        open: modalOpened,
-                                        onClose: _this2.close,
-                                        size: 'small'
-                                    },
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Modal.Header,
-                                        null,
-                                        'Edit defect report'
-                                    ),
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Modal.Content,
-                                        null,
-                                        _react2.default.createElement(
-                                            _semanticUiReact.Form,
-                                            { onSubmit: self.handleSubmit },
-                                            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
-                                                value: self.state.currentReport.title,
-                                                onChange: _this2.handleChange,
-                                                name: 'title' }),
-                                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Tell us more...',
-                                                value: self.state.currentReport.description,
-                                                onChange: _this2.handleChange,
-                                                name: 'description' }),
-                                            _react2.default.createElement(
-                                                _semanticUiReact.Form.Button,
-                                                null,
-                                                'Submit'
-                                            )
-                                        )
                                     )
                                 )
                             );

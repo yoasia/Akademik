@@ -4,7 +4,7 @@ include '../utils.php';
 require('../includes/dbconn.php');
 session_start();
 
-$query = "SELECT * FROM defects where id_user='{$_SESSION['id_user']}'";
+  $query = "SELECT * FROM defects where id_user='{$_SESSION['id_user']}' ORDER BY date DESC";
  $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
  $json_array = array();
  if($result > 0) {

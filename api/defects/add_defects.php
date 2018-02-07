@@ -1,6 +1,7 @@
 <?php
 include '../utils.php';
 require('../includes/dbconn.php');
+session_start();
 
      $id_user = $_POST["id_user"];
      $title = $_POST["title"];
@@ -10,14 +11,14 @@ require('../includes/dbconn.php');
 
 
      $query = "INSERT INTO defects (id_user, title, description, is_done, date)
-      VALUES ('$id_user', '$title', '$description', '$is_done', FROM_UNIXTIME($now))";
+      VALUES ('{$_SESSION['id_user']}', '$title', '$description', '$is_done', FROM_UNIXTIME($now))";
 
      if(mysqli_query($mysqli, $query) or die(mysqli_error($mysqli)))
      {
-       echo "true";
+       echo '{"status":true}';
      }
      else
      {
-       echo "false";
+       echo '{"status":false}';
      }
 ?>
