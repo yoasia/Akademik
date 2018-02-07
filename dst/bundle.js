@@ -69554,6 +69554,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var options = [{ key: 'edit', icon: 'edit', text: 'Edit Post', value: 'edit' }, { key: 'delete', icon: 'delete', text: 'Remove Post', value: 'delete' }];
+
 var Home = function (_React$Component) {
   _inherits(Home, _React$Component);
 
@@ -69566,14 +69568,49 @@ var Home = function (_React$Component) {
       someKey: 'Home',
       downloaded: false,
       news: [],
-      user: props.user
+      user: props.user,
+      modalOpen: false,
+      currentPost: {
+        title: null,
+        description: null
+      }
     };
+
+    _this.editPost = _this.openEditModal.bind(_this);
+    _this.deletePost = _this.deletePost.bind(_this);
+    _this.closeModal = _this.closeModal.bind(_this);
+    _this.openEditModal = _this.openEditModal.bind(_this);
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.getData = _this.getData.bind(_this);
     return _this;
   }
 
   _createClass(Home, [{
+    key: 'handleChange',
+    value: function handleChange(e, _ref) {
+      var name = _ref.name,
+          value = _ref.value;
+
+      var currentPost = Object.assign({}, this.state.currentPost);
+      currentPost[name] = value;
+      this.setState({ currentPost: currentPost });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event, data) {
+      var self = this;
+
+      if (data.name == "new") this.newPost();else if (data.name == "update") this.update();
+    }
+  }, {
     key: 'componentWillMount',
     value: function componentWillMount() {
+      this.getData();
+    }
+  }, {
+    key: 'getData',
+    value: function getData() {
       var self = this;
       var url = null;
       var downloaded = null;
@@ -69595,10 +69632,89 @@ var Home = function (_React$Component) {
       });
     }
   }, {
+    key: 'openEditModal',
+    value: function openEditModal(event, data) {
+      var currentPost = this.state.news[data.index];
+      this.setState({ modalOpen: true, currentPost: currentPost });
+    }
+  }, {
+    key: 'closeModal',
+    value: function closeModal() {
+      this.setState({ modalOpen: false });
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      var self = this;
+      var id = this.state.currentPost.id_notification;
+      var title = this.state.currentPost.title;
+      var content = this.state.currentPost.content;
+
+      var params = new URLSearchParams();
+      params.append('id', id);
+      params.append('title', title);
+      params.append('content', content);
+
+      _axios2.default.post("/api/notifications/update_notifications.php", params).then(function (response) {
+        if (response.data.status) {
+          self.getData();
+        }
+
+        self.closeModal();
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: 'deletePost',
+    value: function deletePost(event, data) {}
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
 
+      var self = this;
       var cardsElements = null;
+      var modalElement = null;
+
+      if (this.state.modalOpen) {
+        modalElement = _react2.default.createElement(
+          _semanticUiReact.Modal,
+          { dimmer: 'blurring',
+            open: true,
+            onClose: this.closeModal,
+            size: 'small'
+          },
+          _react2.default.createElement(
+            _semanticUiReact.Modal.Header,
+            null,
+            'Edit post'
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal.Content,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Form,
+              { name: 'update', onSubmit: self.handleSubmit },
+              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
+                value: self.state.currentPost.title,
+                onChange: self.handleChange,
+                name: 'title' }),
+              _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Content', placeholder: 'Tell us more...',
+                value: self.state.currentPost.content,
+                onChange: self.handleChange,
+                name: 'content' }),
+              _react2.default.createElement(
+                _semanticUiReact.Form.Button,
+                null,
+                'Submit'
+              )
+            )
+          )
+        );
+      }
+
       if (this.state.downloaded && this.state.news) {
         return _react2.default.createElement(
           _semanticUiReact.Grid,
@@ -69613,15 +69729,43 @@ var Home = function (_React$Component) {
             )
           ),
           this.state.news.map(function (element, index) {
+            var editElement = null;
+            if (element.id_user == self.state.user.id) {
+              editElement = _react2.default.createElement(
+                _semanticUiReact.Menu,
+                { floated: 'right' },
+                _react2.default.createElement(
+                  _semanticUiReact.Dropdown,
+                  { item: true, icon: 'bars', simple: true },
+                  _react2.default.createElement(
+                    _semanticUiReact.Dropdown.Menu,
+                    null,
+                    _react2.default.createElement(
+                      _semanticUiReact.Dropdown.Item,
+                      { index: index, onClick: _this2.openEditModal },
+                      'Edit post'
+                    ),
+                    _react2.default.createElement(
+                      _semanticUiReact.Dropdown.Item,
+                      { id_post: element.id_notification, onClick: _this2.deletePost },
+                      'Delete post'
+                    )
+                  )
+                )
+              );
+            }
+
             return _react2.default.createElement(
               _semanticUiReact.Grid.Column,
               { key: element.id_notification },
+              modalElement,
               _react2.default.createElement(
                 _semanticUiReact.Card,
                 { fluid: true },
                 _react2.default.createElement(
                   _semanticUiReact.Card.Content,
                   null,
+                  editElement,
                   _react2.default.createElement(
                     _semanticUiReact.Card.Header,
                     null,
@@ -69631,6 +69775,8 @@ var Home = function (_React$Component) {
                     _semanticUiReact.Card.Meta,
                     null,
                     element.date,
+                    '  ',
+                    element.time,
                     _react2.default.createElement(
                       'div',
                       { className: 'float-right' },
@@ -69641,7 +69787,7 @@ var Home = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   _semanticUiReact.Card.Content,
-                  { extra: true },
+                  null,
                   element.content
                 )
               )
