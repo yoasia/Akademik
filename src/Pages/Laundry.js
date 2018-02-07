@@ -14,7 +14,8 @@ class Laundry extends React.Component {
       user_floor:null,
       floorSelectOptions:null,
       user:props.user,
-      activeItem:(props.user)? props.user.floor: null
+      activeItem:(props.user)? props.user.floor: null,
+      selectedFloor:props.user.floor
     };
 
     this.getFloors = this.getFloors.bind(this);
@@ -65,18 +66,18 @@ class Laundry extends React.Component {
   
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
-  handleItemClick = (e, { value }) => this.setState({ activeItem: value })
+  handleItemClick = (e, { value }) => this.setState({ selectedFloor: value })
 
 
   render() {
     let self = this;
     let dropDownElement = null;
-    const { activeItem } = this.state;
+    const { selectedFloor } = this.state;
     if(this.state.downloaded_floors){
       dropDownElement = (
         <Menu  size='massive'  >
           {self.state.floorSelectOptions.map((element, index)=>{
-            return <Menu.Item key={index} value={element.value} name={"Floor" + element.value} active={activeItem === element.value} onClick={this.handleItemClick} basic color="purple"/>
+            return <Menu.Item key={index} value={element.value} name={"Floor" + element.value} active={selectedFloor === element.value} onClick={this.handleItemClick} basic color="purple"/>
           })
           }
         </Menu>
@@ -96,9 +97,9 @@ class Laundry extends React.Component {
           </Grid.Row>
           <BookingComponent 
           user={this.state.user} 
-          tablename={"laundry"} 
+          tablename={"laundry_lock"} 
           params={{
-            floor:this.state.user.floor,
+            floor:this.state.selectedFloor,
             tablename:"laundry_lock"
           }}>
           </BookingComponent>

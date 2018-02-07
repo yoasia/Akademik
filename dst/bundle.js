@@ -11133,6 +11133,40 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+Date.prototype.today = function () {
+  return this.getFullYear() + "-" + (this.getMonth() + 1 < 10 ? "0" : "") + (this.getMonth() + 1) + "-" + (this.getDate() < 10 ? "0" : "") + this.getDate();
+};
+
+function compareDate(a, b) {
+  var result = false;
+  a = a.trim();
+  b = b.trim();
+  var array1 = a.split("-");
+  var array2 = b.split("-");
+
+  array1.forEach(function (element, index) {
+    if (parseInt(element) > parseInt(array2[index])) result = true;
+  });
+
+  return !result;
+}
+function compareTime(a, b) {
+  var result = false;
+  a = a.trim();
+  b = b.trim();
+  var array1 = a.split(":");
+  var array2 = b.split(":");
+  var dontCheckNext = false;
+
+  array2.forEach(function (element, index) {
+    if (parseInt(element) > parseInt(array1[index]) && !dontCheckNext) result = true;else if (parseInt(element) < parseInt(array1[index])) {
+      dontCheckNext = true;
+    }
+  });
+
+  return result;
+}
+
 var BookingComponent = function (_React$Component) {
   _inherits(BookingComponent, _React$Component);
 
@@ -11150,6 +11184,7 @@ var BookingComponent = function (_React$Component) {
     };
 
     _this.getData = _this.getData.bind(_this);
+    _this.update = _this.update.bind(_this);
     return _this;
   }
 
@@ -11173,14 +11208,38 @@ var BookingComponent = function (_React$Component) {
       });
     }
   }, {
-    key: 'book',
-    value: function book() {}
-  }, {
-    key: 'cancel',
-    value: function cancel() {}
-  }, {
-    key: 'refresh',
-    value: function refresh() {}
+    key: 'update',
+    value: function update(event, data) {
+
+      if (!this.state.user || !this.state.params.tablename) {
+        console.log("User or tablename not set. Could not update Booking Component");
+        return;
+      }
+
+      var self = this;
+      var downloaded = false;
+      var id = data.idRecord;
+      var tablename = this.state.params.tablename;
+      var action = data.action;
+
+      var params = new URLSearchParams();
+      params.append('id', id);
+      params.append('tablename', tablename);
+      params.append('action', action);
+
+      _axios2.default.post("/api/booking/update.php", params).then(function (response) {
+        downloaded = true;
+
+        if (response.data) {
+          //success
+        }
+
+        self.getData(self.state.tablename, self.state.params);
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
   }, {
     key: 'getData',
     value: function getData(tablename, params) {
@@ -11194,12 +11253,8 @@ var BookingComponent = function (_React$Component) {
       var downloaded = false;
       var data = null;
       var hours = null;
-      var url = null;
 
-      if (this.state.tablename == "gym") {
-        url = "/api/booking/get.php";
-      }
-      if (url) _axios2.default.get(url, {
+      _axios2.default.get("/api/booking/get.php", {
         params: params
       }).then(function (response) {
         downloaded = true;
@@ -11250,6 +11305,14 @@ var BookingComponent = function (_React$Component) {
                   null,
                   day.hours.map(function (hours, index) {
                     var buttonElement = null;
+
+                    var timePassed = false;
+                    var currentDay = new Date();
+                    var currentTime = currentDay.getHours() + ":" + currentDay.getMinutes() + ":" + currentDay.getSeconds();
+                    currentDay = currentDay.today();
+
+                    timePassed = compareDate(day.date, currentDay) && compareTime(self.state.data.hours[index], currentTime);
+
                     var canBook = !hours.user_id;
                     var itsUserReservation = hours.user_id == self.state.user.id;
                     var canCancel = itsUserReservation;
@@ -11257,20 +11320,35 @@ var BookingComponent = function (_React$Component) {
                     if (canBook) {
                       buttonElement = _react2.default.createElement(
                         _semanticUiReact.Button,
-                        { basic: true, className: 'margin-left', size: 'mini', color: 'green' },
+                        { basic: true, idRecord: hours.id, action: 'book', size: 'mini', color: 'green', onClick: self.update },
                         'Book'
                       );
                     } else if (canCancel) {
                       buttonElement = _react2.default.createElement(
                         _semanticUiReact.Button,
-                        { basic: true, size: 'mini', color: 'red' },
+                        { basic: true, idRecord: hours.id, action: 'cancel', size: 'mini', color: 'red', onClick: self.update },
                         'Cancel'
                       );
                     }
 
+                    if (timePassed) {
+                      if (itsUserReservation) buttonElement = _react2.default.createElement(
+                        'span',
+                        null,
+                        hours.user_room
+                      );else {
+                        var text = hours.user_room ? "" : "-";
+                        buttonElement = _react2.default.createElement(
+                          'span',
+                          null,
+                          text
+                        );
+                      }
+                    }
+
                     if (!itsUserReservation) return _react2.default.createElement(
                       _semanticUiReact.Segment,
-                      { key: index, textAlign: 'center', className: 'flex' },
+                      { key: index, textAlign: 'center', className: 'flex const-height' },
                       _react2.default.createElement(
                         'div',
                         { className: 'flex-grow' },
@@ -11278,17 +11356,21 @@ var BookingComponent = function (_React$Component) {
                       ),
                       _react2.default.createElement(
                         'div',
-                        { className: 'margin-left flex-grow bigger-font' },
+                        { className: 'flex-grow' },
                         hours.user_room,
                         buttonElement
                       )
                     );else return _react2.default.createElement(
                       _semanticUiReact.Segment,
-                      { key: index, color: 'purple', textAlign: 'center', className: 'flex' },
-                      self.state.data.hours[index],
+                      { inverted: true, tertiary: true, key: index, color: 'purple', textAlign: 'center', className: 'flex const-height' },
                       _react2.default.createElement(
                         'div',
-                        { className: 'margin-left' },
+                        { className: 'flex-grow' },
+                        self.state.data.hours[index]
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'flex-grow' },
                         buttonElement
                       )
                     );
@@ -75331,7 +75413,7 @@ var Laundry = function (_React$Component) {
 
     _this.handleItemClick = function (e, _ref2) {
       var value = _ref2.value;
-      return _this.setState({ activeItem: value });
+      return _this.setState({ selectedFloor: value });
     };
 
     _this.state = {
@@ -75339,7 +75421,8 @@ var Laundry = function (_React$Component) {
       user_floor: null,
       floorSelectOptions: null,
       user: props.user,
-      activeItem: props.user ? props.user.floor : null
+      activeItem: props.user ? props.user.floor : null,
+      selectedFloor: props.user.floor
     };
 
     _this.getFloors = _this.getFloors.bind(_this);
@@ -75398,14 +75481,14 @@ var Laundry = function (_React$Component) {
 
       var self = this;
       var dropDownElement = null;
-      var activeItem = this.state.activeItem;
+      var selectedFloor = this.state.selectedFloor;
 
       if (this.state.downloaded_floors) {
         dropDownElement = _react2.default.createElement(
           _semanticUiReact.Menu,
           { size: 'massive' },
           self.state.floorSelectOptions.map(function (element, index) {
-            return _react2.default.createElement(_semanticUiReact.Menu.Item, { key: index, value: element.value, name: "Floor" + element.value, active: activeItem === element.value, onClick: _this2.handleItemClick, basic: true, color: 'purple' });
+            return _react2.default.createElement(_semanticUiReact.Menu.Item, { key: index, value: element.value, name: "Floor" + element.value, active: selectedFloor === element.value, onClick: _this2.handleItemClick, basic: true, color: 'purple' });
           })
         );
       }
@@ -75433,9 +75516,9 @@ var Laundry = function (_React$Component) {
         ),
         _react2.default.createElement(_BookingComponent2.default, {
           user: this.state.user,
-          tablename: "laundry",
+          tablename: "laundry_lock",
           params: {
-            floor: this.state.user.floor,
+            floor: this.state.selectedFloor,
             tablename: "laundry_lock"
           } })
       );else return null;
@@ -76041,10 +76124,10 @@ var StudyRoom = function (_React$Component) {
                     )
                 ),
                 _react2.default.createElement(_BookingComponent2.default, { user: this.state.user,
-                    tablename: "silence_room",
+                    tablename: "hall_lock",
                     params: {
                         floor: this.state.user.floor,
-                        tablename: "silence_room"
+                        tablename: "hall_lock"
                     } })
             );else return null;
         }

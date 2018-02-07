@@ -3,30 +3,30 @@ include '../utils.php';
 require('../includes/dbconn.php');
 session_start();
 
-$tablename = $_GET["tablename"];
-$id = $_GET["id"];
-$user_id = $_GET["user_id"];
-$action = $_GET["action"];
+$tablename = $_POST["tablename"];
+$id = $_POST["id"];
+$user_id = $_POST["user_id"];
+$action = $_POST["action"];
 
 if ($action == "book") {
   $query = "UPDATE {$tablename}
     SET id_user={$_SESSION['id_user']}
       WHERE id_lock={$id}";
 }
-elseif ($action == "cancel") {
+else if ($action == "cancel") {
   $query = "UPDATE {$tablename}
     SET id_user=NULL
       WHERE id_lock={$id}";
 }
 else {
-  die("Error");
+  die('{"status":false}');
 }
 
 $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
 if ($result) {
-  print true;
+  print '{"status":true}';
 } else {
-  print false;
+  print '{"status":false}';
 }
 
  ?>

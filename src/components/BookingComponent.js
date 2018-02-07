@@ -2,6 +2,46 @@ import React from 'react';
 import { Card, Icon, Button, Segment, Grid, Header, Menu, Label } from 'semantic-ui-react';
 import axios from 'axios';
 
+
+Date.prototype.today = function () { 
+  return this.getFullYear() +"-"+
+  (((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"-"+ 
+  ((this.getDate() < 10)?"0":"") + this.getDate() 
+}
+
+function compareDate(a, b){
+  var result = false;
+  a = a.trim();
+  b = b.trim();
+  var array1 = a.split("-");
+  var array2 = b.split("-");
+
+  array1.forEach((element, index) => {
+    if(parseInt(element) > parseInt(array2[index]))
+      result = true;
+  });
+
+  return !result;
+}
+function compareTime(a, b){
+  var result = false;
+  a = a.trim();
+  b = b.trim();
+  var array1 = a.split(":");
+  var array2 = b.split(":");
+  var dontCheckNext = false;
+
+  array2.forEach((element, index) => {
+    if(parseInt(element) > parseInt(array1[index]) && !dontCheckNext)
+      result = true;
+    else if(parseInt(element) < parseInt(array1[index])) {
+      dontCheckNext = true;
+    }
+  });
+
+  return result;
+}
+
 class BookingComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +54,7 @@ class BookingComponent extends React.Component {
     };
 
     this.getData = this.getData.bind(this);
+    this.update = this.update.bind(this);
   }
   
   componentDidMount() {
@@ -34,9 +75,39 @@ class BookingComponent extends React.Component {
       });
   }
 
-  book(){}
-  cancel(){}
-  refresh(){}
+  update(event, data){
+    
+      if(!this.state.user || !this.state.params.tablename ){
+        console.log("User or tablename not set. Could not update Booking Component");
+        return;
+      }
+
+      let self = this;
+      var downloaded = false;
+      var id = data.idRecord;
+      var tablename = this.state.params.tablename;
+      var action = data.action;
+
+      var params = new URLSearchParams();
+      params.append('id', id);
+      params.append('tablename', tablename);
+      params.append('action', action);
+
+      axios.post("/api/booking/update.php", params)
+      .then(function (response) {
+          downloaded = true;
+
+          if(response.data){
+              //success
+          }
+          
+          self.getData(self.state.tablename, self.state.params);
+          console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   getData(tablename, params){
 
@@ -49,29 +120,24 @@ class BookingComponent extends React.Component {
     var downloaded = false;
     var data = null;
     var hours = null;
-    var url = null;
-
-    if(this.state.tablename == "gym"){
-      url = "/api/booking/get.php"
-    }
-    if(url)
-      axios.get(url, {
-        params: params
-      })
-      .then(function (response) {
-        downloaded = true;
-          if(response.data){
-              data = response.data;
-              self.setState({downloaded, data});
-          }
-          else{
-              self.setState({downloaded});
-          }
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    
+    axios.get("/api/booking/get.php", {
+      params: params
+    })
+    .then(function (response) {
+      downloaded = true;
+        if(response.data){
+            data = response.data;
+            self.setState({downloaded, data});
+        }
+        else{
+            self.setState({downloaded});
+        }
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
@@ -95,28 +161,52 @@ class BookingComponent extends React.Component {
                     <Segment.Group >
                     {day.hours.map((hours, index)=>{
                       var buttonElement = null;
+
+                      var timePassed = false;
+                      var currentDay = new Date();
+                      var currentTime = currentDay.getHours() + ":"  
+                      + currentDay.getMinutes() + ":" 
+                      + currentDay.getSeconds();
+                      currentDay = currentDay.today();
+
+                      timePassed = (compareDate(day.date, currentDay) && 
+                        compareTime(self.state.data.hours[index], currentTime));
+
                       let canBook = (!hours.user_id);
                       let itsUserReservation = (hours.user_id == self.state.user.id)
                       let canCancel = itsUserReservation;
 
                       if(canBook){
                         buttonElement = (
-                          <Button basic className="margin-left" size='mini' color='green'>Book</Button>
+                          <Button basic idRecord={hours.id} action="book" size='mini' color='green' onClick={self.update}>Book</Button>
                         )
                       }
                       else if(canCancel){
                         buttonElement = (
-                          <Button basic size='mini' color='red' >Cancel</Button>
+                          <Button basic idRecord={hours.id} action="cancel" size='mini' color='red' onClick={self.update} >Cancel</Button>
                         )
+                      }
+
+                      if (timePassed){
+                        if(itsUserReservation)
+                          buttonElement = (
+                            <span>{hours.user_room}</span>
+                          )
+                        else{
+                          let text = (hours.user_room) ? "" : "-";
+                          buttonElement = (
+                            <span>{text}</span>
+                          )
+                        }
                       }
 
                       if(!itsUserReservation)
                         return (
-                            <Segment key={index} textAlign="center" className="flex">
+                            <Segment key={index} textAlign="center" className="flex const-height">
                               <div className="flex-grow">
                                 {self.state.data.hours[index]}
                               </div>
-                              <div className="margin-left flex-grow bigger-font">
+                              <div className="flex-grow">
                                 {hours.user_room}
                                 {buttonElement}
                               </div>
@@ -125,9 +215,11 @@ class BookingComponent extends React.Component {
                           )
                       else
                       return (
-                          <Segment  key={index} color="purple" textAlign="center" className="flex">
-                            {self.state.data.hours[index]}
-                            <div className="margin-left">
+                          <Segment inverted tertiary key={index} color="purple" textAlign="center" className="flex const-height" >
+                            <div className="flex-grow">
+                              {self.state.data.hours[index]}
+                            </div>
+                            <div  className="flex-grow">
                               {buttonElement}
                             </div>
                           </Segment>)
