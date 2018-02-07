@@ -4,33 +4,38 @@ require('../includes/dbconn.php');
 session_start();
 
 ///////////////////////////////////////////
-$_GET["ds_number"] = 2;
-$_GET["floor"] = 3;
+// $_GET["ds_number"] = 2;
+// $_GET["floor"] = 3;
 ///////////////////////////////////////////
 
 $actual_date = date('Y-m-d');
 $actual_hours = getHours();
 
-$ds_number = $_GET["ds_number"];
+$ds_number = $_SESSION["ds_number"];
 $floor = $_GET["floor"];
 
 $gym->ds_number = $ds_number;
 $gym->hours = $actual_hours;
 
 $gym->days = array();
-$days->hours = array(array());
+$days->hours = array();
+
+// $days = array();
+$day = [];
 
 for ($day_index = 0; $day_index < 7; $day_index++) {
   if ($day_index != 0) {
     $actual_date = date('Y-m-d', strtotime('+1 day', strtotime($actual_date)));
   }
-  $day = date('l', strtotime($actual_date));
+  $day_name = date('l', strtotime($actual_date));
 
-  $days->name = $day;
-  $days->date = $actual_date;
-  $days->hours = array();
+  $day["name"] = $day_name;
+  $day["date"] = $actual_date;
+  $day["hours"] = [];
 
   foreach ($actual_hours as $hour) {
+    $hours = [];
+
     $parsed_hour = parseHourToMYSQL($hour);
     $hour_dbFormat = date('H:i:s', strtotime($parsed_hour));
 
@@ -41,7 +46,6 @@ for ($day_index = 0; $day_index < 7; $day_index++) {
 
     $id_user = $parsed_result["id_user"];
     $id_lock = $parsed_result["id_lock"];
-    $flag = false;
 
     if ($id_user == NULL) {
       $room_number = NULL;
@@ -53,22 +57,18 @@ for ($day_index = 0; $day_index < 7; $day_index++) {
       $room_number = $parsed_result_2["room_number"];
     }
 
-    $hours->id = $id_lock;
-    $hours->user_room = $room_number;
-    $hours->user_id = $id_user;
+    $hours["id"] = $id_lock;
+    $hours["user_room"] = $room_number;
+    $hours["user_id"] = $id_user;
 
     if($_SESSION["id_user"] == $id_user && $id_user != NULL) {
-      $hours->editable= true;
+      $hours["editable"] = true;
     } else {
-      $hours->editable = false;
+      $hours["editable"] = false;
     }
-
-    // array_push($days->hours, $hours);
-    // var_dump($days->hours);
-    // print '<br/><br/>';
+    array_push($day["hours"], $hours);
   }
-  // array_push($days->hours, $table);
-  // array_push($gym->days, $days);
+  array_push($gym->days, $day);
 }
 
 // var_dump($days->hours);
