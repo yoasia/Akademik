@@ -41,7 +41,7 @@ class Report extends React.Component {
         
     }
 
-    addReport(params){
+    addReport(){
         let self = this;
         var title = this.state.currentReport.title;
         var description = this.state.currentReport.description;
@@ -50,6 +50,31 @@ class Report extends React.Component {
         params.append('description', description);
 
         axios.post("/api/defects/add_defects.php", params
+        )
+        .then(function (response) {
+            if(response.data.status){
+                self.getData();
+            }
+            else{
+                console.log("Something went wrong. Could not add new report.")
+            }
+
+            self.close()
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    removeReport(event, data){
+        let self = this;
+        var id_defect = data.id_defect;
+    
+        var params = new URLSearchParams();
+        params.append('id', id_defect);
+
+        axios.post("/api/defects/remove_defects.php", params
         )
         .then(function (response) {
             if(response.data.status){
@@ -124,10 +149,6 @@ class Report extends React.Component {
             open: true, 
             newReport:true        
         });
-    }
-
-    removeReport(){
-
     }
 
     getData(){
@@ -213,19 +234,23 @@ class Report extends React.Component {
 
         if(this.state.downloaded)
         return (
-            <Grid padded className="padd" textAlign="center"> 
+            <Grid padded="horizontally" className="padd" textAlign="center"> 
                 {modalElement}
                 <Grid.Row key={1}>
                     <Image src='../../assets/img/c4.png' size='small' wrapped />
                 </Grid.Row>
                 <Grid.Row key={2}>
-                    <Header>Your reports</Header>
-                </Grid.Row>
-                <Grid.Row key={3}>
-                    <Button basic icon onClick={this.openNewModal}> 
-                        <Icon color="green" name='plus' />
-                        New Report
-                    </Button>
+                    <Grid.Column verticalAlign="middle" mobile={13} tablet={4} computer={2}  key={1}>
+                        <Header>
+                            Your reports 
+                        </Header>
+                    </Grid.Column>
+                    <Grid.Column verticalAlign="middle" mobile={3} tablet={2} computer={1} key={2}>
+                        <Button icon onClick={this.openNewModal}> 
+                            <Icon color="green" name='plus' />
+                            New
+                        </Button>
+                    </Grid.Column>
                 </Grid.Row>
                 <Grid.Row key={4}>
                     <List divided verticalAlign='middle'>
@@ -270,7 +295,7 @@ class Report extends React.Component {
                             <List.Item key={index}>
                                 <List.Content key={2} floated='right' >
                                     {editButtonElement}
-                                    <Button basic color="red" icon > 
+                                    <Button id_defect={element.id_defect} basic color="red" icon onClick={self.removeReport}> 
                                         <Icon name='close' />
                                     </Button>
                                 </List.Content>

@@ -73097,7 +73097,7 @@ var Report = function (_React$Component) {
         }
     }, {
         key: 'addReport',
-        value: function addReport(params) {
+        value: function addReport() {
             var self = this;
             var title = this.state.currentReport.title;
             var description = this.state.currentReport.description;
@@ -73106,6 +73106,28 @@ var Report = function (_React$Component) {
             params.append('description', description);
 
             _axios2.default.post("/api/defects/add_defects.php", params).then(function (response) {
+                if (response.data.status) {
+                    self.getData();
+                } else {
+                    console.log("Something went wrong. Could not add new report.");
+                }
+
+                self.close();
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'removeReport',
+        value: function removeReport(event, data) {
+            var self = this;
+            var id_defect = data.id_defect;
+
+            var params = new URLSearchParams();
+            params.append('id', id_defect);
+
+            _axios2.default.post("/api/defects/remove_defects.php", params).then(function (response) {
                 if (response.data.status) {
                     self.getData();
                 } else {
@@ -73179,9 +73201,6 @@ var Report = function (_React$Component) {
                 newReport: true
             });
         }
-    }, {
-        key: 'removeReport',
-        value: function removeReport() {}
     }, {
         key: 'getData',
         value: function getData() {
@@ -73290,7 +73309,7 @@ var Report = function (_React$Component) {
 
             if (this.state.downloaded) return _react2.default.createElement(
                 _semanticUiReact.Grid,
-                { padded: true, className: 'padd', textAlign: 'center' },
+                { padded: 'horizontally', className: 'padd', textAlign: 'center' },
                 modalElement,
                 _react2.default.createElement(
                     _semanticUiReact.Grid.Row,
@@ -73301,19 +73320,23 @@ var Report = function (_React$Component) {
                     _semanticUiReact.Grid.Row,
                     { key: 2 },
                     _react2.default.createElement(
-                        _semanticUiReact.Header,
-                        null,
-                        'Your reports'
-                    )
-                ),
-                _react2.default.createElement(
-                    _semanticUiReact.Grid.Row,
-                    { key: 3 },
+                        _semanticUiReact.Grid.Column,
+                        { verticalAlign: 'middle', mobile: 13, tablet: 4, computer: 2, key: 1 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Header,
+                            null,
+                            'Your reports'
+                        )
+                    ),
                     _react2.default.createElement(
-                        _semanticUiReact.Button,
-                        { basic: true, icon: true, onClick: this.openNewModal },
-                        _react2.default.createElement(_semanticUiReact.Icon, { color: 'green', name: 'plus' }),
-                        'New Report'
+                        _semanticUiReact.Grid.Column,
+                        { verticalAlign: 'middle', mobile: 3, tablet: 2, computer: 1, key: 2 },
+                        _react2.default.createElement(
+                            _semanticUiReact.Button,
+                            { icon: true, onClick: this.openNewModal },
+                            _react2.default.createElement(_semanticUiReact.Icon, { color: 'green', name: 'plus' }),
+                            'New'
+                        )
                     )
                 ),
                 _react2.default.createElement(
@@ -73361,7 +73384,7 @@ var Report = function (_React$Component) {
                                     editButtonElement,
                                     _react2.default.createElement(
                                         _semanticUiReact.Button,
-                                        { basic: true, color: 'red', icon: true },
+                                        { id_defect: element.id_defect, basic: true, color: 'red', icon: true, onClick: self.removeReport },
                                         _react2.default.createElement(_semanticUiReact.Icon, { name: 'close' })
                                     )
                                 ),
