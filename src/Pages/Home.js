@@ -1,14 +1,15 @@
 import React from 'react';
-import { Card, Icon, Button, Grid, Loader, Dimmer } from 'semantic-ui-react';
+import { Card, Icon, Button, Grid, Loader, Dimmer, Header } from 'semantic-ui-react';
 import axios from 'axios';
 
 class Home extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { 
       someKey: 'Home',
       downloaded:false,
-      news:[]
+      news:[],
+      user:props.user
     };
   }
 
@@ -41,22 +42,25 @@ class Home extends React.Component {
   render() {
 
     var cardsElements = null;
-    if(this.state.downloaded){
+    if(this.state.downloaded && this.state.news){
       return (
         <Grid container columns={1} stackable className="padd">
+        <Grid.Column key={0}>
+          <Header as='h1'>News</Header>
+        </Grid.Column>
           {this.state.news.map((element, index)=>{
             return (
-              <Grid.Column key={element.id}>
+              <Grid.Column key={element.id_notification}>
                 <Card  fluid>
                   <Card.Content>
                     <Card.Header>
                       {element.title}
                     </Card.Header>
                     <Card.Meta>
-                      {element.data}
+                      {element.date}
                       <div className='float-right'>
                         <Icon name='user' />
-                        {element.username}
+                        {element.nickname}
                       </div>
                     </Card.Meta>
                   </Card.Content>
@@ -69,6 +73,13 @@ class Home extends React.Component {
       </Grid>
     );
   }
+  else if (this.state.downloaded){
+    return (
+      <Grid container columns={1} stackable className="padd">
+         <Header>There is no notifications.</Header>
+      </Grid>
+    );
+  }
   else{
     return (
       <Grid container columns={1} stackable className="padd">
@@ -76,7 +87,7 @@ class Home extends React.Component {
             <Loader inverted size='big'>Loading</Loader> 
          </Dimmer>
       </Grid>
-  );
+    );
   }
   }
 }

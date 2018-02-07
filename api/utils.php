@@ -7,7 +7,7 @@ function getNickname($id) {
     return 'null';
   }
 
-  $query = "SELECT nickname FROM users WHERE id_user='$id'";
+  $query = "SELECT nickname FROM users WHERE id_user='{$id}'";
   $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
   $nickname = mysqli_fetch_array($result)["nickname"];
 
@@ -21,7 +21,7 @@ function getNicknameByMail($mail) {
     return 'null';
   }
 
-  $query = "SELECT nickname FROM users WHERE email='$mail'";
+  $query = "SELECT nickname FROM users WHERE email='{$mail}'";
   $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
   $nickname = mysqli_fetch_array($result)["nickname"];
 

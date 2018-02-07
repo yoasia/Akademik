@@ -24556,7 +24556,7 @@ var App = function (_React$Component) {
             _axios2.default.get(url).then(function (response) {
                 if (response.data.status) {
                     logged = true;
-                    var user = new User(response.data[0]);
+                    var user = new User(response.data);
                     self.setState({ logged: logged, user: user });
                 } else {
                     self.setState({ logged: logged });
@@ -24593,14 +24593,14 @@ var App = function (_React$Component) {
                 { ref: this.handleContextRef },
                 _react2.default.createElement(
                     _semanticUiReact.Segment,
-                    { className: 'no-padd' },
+                    { className: 'no-padd full-height' },
                     _react2.default.createElement(
                         _reactRouterDom.BrowserRouter,
                         null,
                         _react2.default.createElement(
                             'div',
                             { className: 'container bottom-margin' },
-                            _react2.default.createElement(_Header2.default, { username: this.state.user ? this.state.user.username : null }),
+                            _react2.default.createElement(_Header2.default, { user: self.state.user, username: this.state.user ? this.state.user.username : null }),
                             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
                                     return _this2.state.logged == false ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' }) : _react2.default.createElement(_Home2.default, { user: self.state.user });
                                 } }),
@@ -24617,10 +24617,10 @@ var App = function (_React$Component) {
                                     return _this2.state.logged == false ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' }) : _react2.default.createElement(_StudyRoom2.default, { user: self.state.user });
                                 } }),
                             _react2.default.createElement(_reactRouterDom.Route, { path: '/login', render: function render() {
-                                    return _this2.state.logged == true ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' }) : _react2.default.createElement(_Login2.default, { afterLogin: _this2.login });
+                                    return _this2.state.logged == true ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' }) : _react2.default.createElement(_Login2.default, { afterLogin: self.login });
                                 } }),
                             _react2.default.createElement(_reactRouterDom.Route, { path: '/logout', render: function render() {
-                                    return _react2.default.createElement(_Logout2.default, { logout: _this2.logout });
+                                    return _react2.default.createElement(_Logout2.default, { logout: self.logout });
                                 } }),
                             _react2.default.createElement(_Footer2.default, null)
                         )
@@ -24640,7 +24640,7 @@ var App = function (_React$Component) {
                             null,
                             _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login', push: true }),
                             _react2.default.createElement(_reactRouterDom.Route, { render: function render() {
-                                    return _react2.default.createElement(_Login2.default, { afterLogin: _this2.login });
+                                    return _react2.default.createElement(_Login2.default, { afterLogin: self.login });
                                 } })
                         )
                     )
@@ -69290,8 +69290,6 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -69306,10 +69304,10 @@ var Logout = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Logout.__proto__ || Object.getPrototypeOf(Logout)).call(this, props));
 
-    _this.state = _defineProperty({
+    _this.state = {
       sended: false,
-      logout: false
-    }, 'logout', props.logout);
+      logout: props.logout
+    };
     _this.logout = _this.logout.bind(_this);
     return _this;
   }
@@ -69321,25 +69319,33 @@ var Logout = function (_React$Component) {
     }
   }, {
     key: 'logout',
-    value: function logout() {
+    value: function (_logout) {
+      function logout() {
+        return _logout.apply(this, arguments);
+      }
+
+      logout.toString = function () {
+        return _logout.toString();
+      };
+
+      return logout;
+    }(function () {
       var self = this;
       var sended = false;
-      var logout = false;
-      _axios2.default.get("http://localhost:3000/logout").then(function (response) {
+      _axios2.default.get("api/logout.php").then(function (response) {
         sended = true;
         if (response.data.status) {
-          logout = true;
+          self.setState({ sended: sended });
           self.state.logout();
-          self.setState({ sended: sended, logout: logout });
         } else {
-          logged = false;
+          logout = false;
           self.setState({ sended: sended, logout: logout });
         }
         console.log(response);
       }).catch(function (error) {
         console.log(error);
       });
-    }
+    })
   }, {
     key: 'render',
     value: function render() {
@@ -69397,7 +69403,8 @@ var Header = function (_React$Component) {
     _this.state = {
       logged: props.username ? true : false,
       username: props.username,
-      activeItem: 'home'
+      activeItem: 'home',
+      user: props.user
     };
     return _this;
   }
@@ -69425,7 +69432,8 @@ var Header = function (_React$Component) {
           _react2.default.createElement(
             _semanticUiReact.Header.Content,
             null,
-            'Dormitory'
+            'Dormitory ',
+            this.state.user.ds
           )
         ),
         _react2.default.createElement(
@@ -69549,15 +69557,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Home = function (_React$Component) {
   _inherits(Home, _React$Component);
 
-  function Home() {
+  function Home(props) {
     _classCallCheck(this, Home);
 
-    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
+    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 
     _this.state = {
       someKey: 'Home',
       downloaded: false,
-      news: []
+      news: [],
+      user: props.user
     };
     return _this;
   }
@@ -69590,14 +69599,23 @@ var Home = function (_React$Component) {
     value: function render() {
 
       var cardsElements = null;
-      if (this.state.downloaded) {
+      if (this.state.downloaded && this.state.news) {
         return _react2.default.createElement(
           _semanticUiReact.Grid,
           { container: true, columns: 1, stackable: true, className: 'padd' },
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Column,
+            { key: 0 },
+            _react2.default.createElement(
+              _semanticUiReact.Header,
+              { as: 'h1' },
+              'News'
+            )
+          ),
           this.state.news.map(function (element, index) {
             return _react2.default.createElement(
               _semanticUiReact.Grid.Column,
-              { key: element.id },
+              { key: element.id_notification },
               _react2.default.createElement(
                 _semanticUiReact.Card,
                 { fluid: true },
@@ -69612,12 +69630,12 @@ var Home = function (_React$Component) {
                   _react2.default.createElement(
                     _semanticUiReact.Card.Meta,
                     null,
-                    element.data,
+                    element.date,
                     _react2.default.createElement(
                       'div',
                       { className: 'float-right' },
                       _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
-                      element.username
+                      element.nickname
                     )
                   )
                 ),
@@ -69629,6 +69647,16 @@ var Home = function (_React$Component) {
               )
             );
           })
+        );
+      } else if (this.state.downloaded) {
+        return _react2.default.createElement(
+          _semanticUiReact.Grid,
+          { container: true, columns: 1, stackable: true, className: 'padd' },
+          _react2.default.createElement(
+            _semanticUiReact.Header,
+            null,
+            'There is no notifications.'
+          )
         );
       } else {
         return _react2.default.createElement(
@@ -73031,17 +73059,89 @@ var Report = function (_React$Component) {
         _this.state = {
             user: props.user,
             downloaded: false,
-            user_reports: []
+            user_reports: [],
+            open: false,
+            currentReportIndex: null,
+            currentReport: {
+                title: null,
+                description: null
+            }
         };
         _this.getData = _this.getData.bind(_this);
+        _this.editReport = _this.editReport.bind(_this);
+        _this.removeReport = _this.removeReport.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.close = _this.close.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
         return _this;
     }
 
     _createClass(Report, [{
+        key: 'handleChange',
+        value: function handleChange(e, _ref) {
+            var name = _ref.name,
+                value = _ref.value;
+
+            var currentReport = this.state.currentReport;
+            currentReport[name] = value;
+            this.setState({ currentReport: currentReport });
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit() {
+            var self = this;
+            var sended = false;
+            var id = this.state.user_reports[this.state.currentReportIndex].id_defect;
+            var title = this.state.currentReport.title;
+            var description = this.state.currentReport.description;
+
+            var params = new URLSearchParams();
+            params.append('id', id);
+            params.append('title', title);
+            params.append('description', description);
+
+            _axios2.default.post("/api/defects/update_defects.php", params).then(function (response) {
+                if (response.data.status) {
+                    var user_reports = self.state.user_reports;
+                    user_reports[self.state.currentReportIndex].title = title;
+                    user_reports[self.state.currentReportIndex].description = description;
+                    self.setState({ user_reports: user_reports });
+                }
+
+                self.close();
+                console.log(response);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'close',
+        value: function close() {
+            this.setState({
+                open: false,
+                currentReportIndex: null,
+                currentReport: {
+                    title: null,
+                    description: null
+                } });
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.getData();
         }
+    }, {
+        key: 'editReport',
+        value: function editReport(event, data) {
+            this.setState({
+                open: true,
+                currentReportIndex: data.index,
+                currentReport: Object.assign({}, this.state.user_reports[data.index])
+            });
+        }
+    }, {
+        key: 'removeReport',
+        value: function removeReport() {}
     }, {
         key: 'getData',
         value: function getData() {
@@ -73050,7 +73150,7 @@ var Report = function (_React$Component) {
             var user_reports = null;
             var hours = null;
 
-            _axios2.default.get("http://localhost:3000/defects", {
+            _axios2.default.get("/api/defects/get_defects.php", {
                 // params: params
                 params: {}
             }).then(function (response) {
@@ -73069,6 +73169,10 @@ var Report = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var self = this;
+
             if (this.state.downloaded) return _react2.default.createElement(
                 _semanticUiReact.Grid,
                 { padded: true, className: 'padd', textAlign: 'center' },
@@ -73104,10 +73208,34 @@ var Report = function (_React$Component) {
                         _semanticUiReact.List,
                         { divided: true, verticalAlign: 'middle' },
                         this.state.user_reports.map(function (element, index) {
-                            var status = element.status;
+                            var status = element.is_done;
                             var iconListElement = null;
-                            if (status == "done") iconListElement = _react2.default.createElement(_semanticUiReact.List.Icon, { name: 'checkmark', color: 'green', size: 'large', verticalAlign: 'middle' });else if (status == "in queue") {
-                                iconListElement = _react2.default.createElement(_semanticUiReact.List.Icon, { name: 'hourglass half', color: 'blue', size: 'large', verticalAlign: 'middle' });
+                            var editButtonElement = null;
+                            var modalOpened = self.state.open && index == self.state.currentReportIndex;
+                            if (status == "0") {
+                                iconListElement = _react2.default.createElement(_semanticUiReact.List.Icon, {
+                                    name: 'hourglass half',
+                                    color: 'blue',
+                                    size: 'large',
+                                    verticalAlign: 'middle'
+                                });
+                                editButtonElement = _react2.default.createElement(
+                                    _semanticUiReact.Button,
+                                    {
+                                        basic: true,
+                                        icon: true,
+                                        color: 'blue',
+                                        onClick: _this2.editReport,
+                                        index: index
+                                    },
+                                    _react2.default.createElement(_semanticUiReact.Icon, { color: true, green: true, name: 'edit' })
+                                );
+                            } else {
+                                iconListElement = _react2.default.createElement(_semanticUiReact.List.Icon, {
+                                    name: 'checkmark',
+                                    color: 'green',
+                                    size: 'large',
+                                    verticalAlign: 'middle' });
                             }
 
                             return _react2.default.createElement(
@@ -73116,10 +73244,10 @@ var Report = function (_React$Component) {
                                 _react2.default.createElement(
                                     _semanticUiReact.List.Content,
                                     { key: 2, floated: 'right' },
+                                    editButtonElement,
                                     _react2.default.createElement(
                                         _semanticUiReact.Button,
                                         { basic: true, color: 'red', icon: true },
-                                        ' ',
                                         _react2.default.createElement(_semanticUiReact.Icon, { color: true, green: true, name: 'close' })
                                     )
                                 ),
@@ -73136,6 +73264,40 @@ var Report = function (_React$Component) {
                                         _semanticUiReact.List.Description,
                                         { as: 'a' },
                                         element.date
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _semanticUiReact.Modal,
+                                    { dimmer: 'blurring',
+                                        open: modalOpened,
+                                        onClose: _this2.close,
+                                        size: 'small'
+                                    },
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Modal.Header,
+                                        null,
+                                        'Edit defect report'
+                                    ),
+                                    _react2.default.createElement(
+                                        _semanticUiReact.Modal.Content,
+                                        null,
+                                        _react2.default.createElement(
+                                            _semanticUiReact.Form,
+                                            { onSubmit: self.handleSubmit },
+                                            _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
+                                                value: self.state.currentReport.title,
+                                                onChange: _this2.handleChange,
+                                                name: 'title' }),
+                                            _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Description', placeholder: 'Tell us more...',
+                                                value: self.state.currentReport.description,
+                                                onChange: _this2.handleChange,
+                                                name: 'description' }),
+                                            _react2.default.createElement(
+                                                _semanticUiReact.Form.Button,
+                                                null,
+                                                'Submit'
+                                            )
+                                        )
                                     )
                                 )
                             );

@@ -6,7 +6,6 @@ class Logout extends React.Component {
     super(props);
     this.state = { 
       sended:false,
-      logout:false,
       logout:props.logout
     };
     this.logout = this.logout.bind(this);
@@ -19,17 +18,15 @@ class Logout extends React.Component {
   logout(){
     let self = this;
     var sended = false;
-    var logout = false;
-    axios.get("http://localhost:3000/logout")
+    axios.get("api/logout.php")
     .then(function (response) {
         sended = true;
         if(response.data.status){
-            logout = true;
+            self.setState({sended});
             self.state.logout();
-            self.setState({sended, logout});
         }
         else{
-            logged = false;
+          logout = false;
             self.setState({sended, logout});
         }
       console.log(response);

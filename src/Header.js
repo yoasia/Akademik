@@ -8,7 +8,8 @@ class Header extends React.Component {
     this.state = { 
       logged: (props.username) ? true:false,
       username: props.username,
-      activeItem:'home'
+      activeItem:'home',
+      user:props.user
     };
   }
 
@@ -27,7 +28,7 @@ class Header extends React.Component {
         <SemanticHeader  as='h1' className="gradient padd ">
           <Image src='../assets/img/logo_pg.png' size='massive' ></Image>
           <SemanticHeader.Content>
-            Dormitory
+            Dormitory {this.state.user.ds}
           </SemanticHeader.Content>
         </SemanticHeader>
         <Menu size='massive' pointing secondary>

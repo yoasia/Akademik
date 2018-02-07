@@ -76,7 +76,7 @@ class App extends React.Component {
         .then(function (response) {
             if(response.data.status){
                 logged = true;
-                var user = new User(response.data[0]);
+                var user = new User(response.data);
                 self.setState({logged, user});
             }
             else{
@@ -104,10 +104,10 @@ class App extends React.Component {
         if(this.state.logged)
             return (
                 <div ref={this.handleContextRef}>
-                    <Segment className="no-padd">
+                    <Segment className="no-padd full-height">
                         <Router>
                             <div className="container bottom-margin">
-                                <Header username={(this.state.user)? this.state.user.username : null }></Header>
+                                <Header user={self.state.user} username={(this.state.user)? this.state.user.username : null }></Header>
                                 <Route exact path="/" render={() => (
                                     this.state.logged == false  ? (
                                         <Redirect to="/login"/>
@@ -147,11 +147,11 @@ class App extends React.Component {
                                     this.state.logged == true  ? (
                                         <Redirect to="/"/>
                                     ) : (
-                                        <Login afterLogin={this.login}/>
+                                        <Login afterLogin={self.login}/>
                                     )
                                 )}/>
                                 <Route path="/logout" render={() => (
-                                    <Logout logout={this.logout} />
+                                    <Logout logout={self.logout} />
                                 )}/>
                                 <Footer></Footer>
                             </div>
@@ -167,7 +167,7 @@ class App extends React.Component {
                             <div>
                                 <Redirect to="/login" push />
                                 <Route render={() => (
-                                    <Login afterLogin={this.login}/>
+                                    <Login afterLogin={self.login}/>
                                 )}  />
                             </div>                     
                         </Router>

@@ -18,5 +18,5 @@ setcookie(session_name(),
  
 // Destroy session 
 session_destroy();
-
+echo '{"status":true}';
 ?>
