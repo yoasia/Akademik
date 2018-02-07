@@ -4,8 +4,8 @@ require('../includes/dbconn.php');
 session_start();
 
 ///////////////////////////////////////////
-// $_GET["ds_number"] = 2;
-// $_GET["floor"] = 3;
+$_GET["ds_number"] = 2;
+$_GET["floor"] = 3;
 ///////////////////////////////////////////
 
 $actual_date = date('Y-m-d');
@@ -18,7 +18,7 @@ $gym->ds_number = $ds_number;
 $gym->hours = $actual_hours;
 
 $gym->days = array();
-$days->hours = array();
+$days->hours = array(array());
 
 for ($day_index = 0; $day_index < 7; $day_index++) {
   if ($day_index != 0) {
@@ -31,24 +31,26 @@ for ($day_index = 0; $day_index < 7; $day_index++) {
   $days->hours = array();
 
   foreach ($actual_hours as $hour) {
-    $hour = parseHourToMYSQL($hour);
+    $parsed_hour = parseHourToMYSQL($hour);
+    $hour_dbFormat = date('H:i:s', strtotime($parsed_hour));
 
     $query = "SELECT id_lock, id_user FROM gym_lock
-      WHERE date='{$actual_date}' AND floor={$floor} AND ds_number={$ds_number}";
+      WHERE date='{$actual_date}' AND floor={$floor} AND ds_number={$ds_number} AND time='{$hour_dbFormat}'";
     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    $parsed_result = mysqli_fetch_assoc($result);
 
-    $id_lock = mysqli_fetch_assoc($result)["id_lock"];
-    $id_user = mysqli_fetch_assoc($result)["id_user"];
-    print var_dump($id_user) . '<br/>';
+    $id_user = $parsed_result["id_user"];
+    $id_lock = $parsed_result["id_lock"];
+    $flag = false;
+
     if ($id_user == NULL) {
       $room_number = NULL;
-      print $id_user;
     } else {
-      print "nie ma nulla";
       $query = "SELECT room_number FROM users WHERE id_user={$id_user}";
       $result_2 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+      $parsed_result_2 = mysqli_fetch_assoc($result_2);
 
-      $room_number = mysqli_fetch_assoc($result_2)["room_number"];
+      $room_number = $parsed_result_2["room_number"];
     }
 
     $hours->id = $id_lock;
@@ -61,11 +63,15 @@ for ($day_index = 0; $day_index < 7; $day_index++) {
       $hours->editable = false;
     }
 
-    array_push($days->hours, $hours);
+    // array_push($days->hours, $hours);
+    // var_dump($days->hours);
+    // print '<br/><br/>';
   }
-  array_push($gym->days, $days);
+  // array_push($days->hours, $table);
+  // array_push($gym->days, $days);
 }
 
+// var_dump($days->hours);
 $json_encoded = json_encode($gym);
 // var_dump($json_encoded);
 print $json_encoded;
