@@ -287,7 +287,39 @@ class Home extends React.Component {
   else if (this.state.downloaded){
     return (
       <Grid container columns={1} stackable className="padd">
-         <Header>There is no notifications.</Header>
+          <Grid.Row key={0}>
+              <Grid.Column floated='left' verticalAlign="middle" mobile={10} tablet={4} computer={2}  key={1}>
+                <Header as='h1'>News</Header>
+              </Grid.Column>
+              <Grid.Column floated='right' mobile={2} tablet={2} computer={1} key={2} relaxed="very" >
+                  <Button color="green"  icon onClick={this.openNewModal} > 
+                      <Icon  name='plus' />
+                  </Button>
+              </Grid.Column>
+          </Grid.Row>
+          <Grid.Row key={1}>
+              <Header>No news :(</Header>
+          </Grid.Row>
+          <Modal dimmer="blurring" 
+            open={this.state.open} 
+            onClose={this.closeModal}
+            size="small"
+            >
+                <Modal.Header>New post</Modal.Header>
+                <Modal.Content>
+                    <Form name="new" onSubmit={self.handleSubmit}>
+                        <Form.Input fluid label='Title' placeholder='title' 
+                        value={self.state.currentPost.title} 
+                        onChange={self.handleChange}
+                        name="title"/>
+                        <Form.TextArea label='Content' placeholder='...' 
+                        value={self.state.currentPost.description} 
+                        onChange={self.handleChange}
+                        name="content"/>
+                        <Form.Button>Submit</Form.Button>
+                    </Form>
+                </Modal.Content>
+          </Modal>
       </Grid>
     );
   }

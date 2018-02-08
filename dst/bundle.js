@@ -70760,9 +70760,69 @@ var Home = function (_React$Component) {
           _semanticUiReact.Grid,
           { container: true, columns: 1, stackable: true, className: 'padd' },
           _react2.default.createElement(
-            _semanticUiReact.Header,
-            null,
-            'There is no notifications.'
+            _semanticUiReact.Grid.Row,
+            { key: 0 },
+            _react2.default.createElement(
+              _semanticUiReact.Grid.Column,
+              { floated: 'left', verticalAlign: 'middle', mobile: 10, tablet: 4, computer: 2, key: 1 },
+              _react2.default.createElement(
+                _semanticUiReact.Header,
+                { as: 'h1' },
+                'News'
+              )
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Grid.Column,
+              { floated: 'right', mobile: 2, tablet: 2, computer: 1, key: 2, relaxed: 'very' },
+              _react2.default.createElement(
+                _semanticUiReact.Button,
+                { color: 'green', icon: true, onClick: this.openNewModal },
+                _react2.default.createElement(_semanticUiReact.Icon, { name: 'plus' })
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Grid.Row,
+            { key: 1 },
+            _react2.default.createElement(
+              _semanticUiReact.Header,
+              null,
+              'No news :('
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal,
+            { dimmer: 'blurring',
+              open: this.state.open,
+              onClose: this.closeModal,
+              size: 'small'
+            },
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Header,
+              null,
+              'New post'
+            ),
+            _react2.default.createElement(
+              _semanticUiReact.Modal.Content,
+              null,
+              _react2.default.createElement(
+                _semanticUiReact.Form,
+                { name: 'new', onSubmit: self.handleSubmit },
+                _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Title', placeholder: 'title',
+                  value: self.state.currentPost.title,
+                  onChange: self.handleChange,
+                  name: 'title' }),
+                _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Content', placeholder: '...',
+                  value: self.state.currentPost.description,
+                  onChange: self.handleChange,
+                  name: 'content' }),
+                _react2.default.createElement(
+                  _semanticUiReact.Form.Button,
+                  null,
+                  'Submit'
+                )
+              )
+            )
           )
         );
       } else {
