@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Button, Segment, Grid, Header, Menu, Label } from 'semantic-ui-react';
+import { Card, Icon, Button, Segment, Grid, Header, Menu, Label, Dimmer, Loader } from 'semantic-ui-react';
 import axios from 'axios';
 
 
@@ -142,7 +142,7 @@ class BookingComponent extends React.Component {
 
   render() {
     let self = this;
-    if(this.state.data.length != 0 && this.state.data)
+    if(this.state.data.length != 0 && this.state.data && this.state.downloaded)
       return (
         <Grid.Row key={1}>
           {this.state.data.days.map((day, index)=>{
@@ -232,6 +232,16 @@ class BookingComponent extends React.Component {
           })}
         </Grid.Row>
       );
+    else if(this.state.downloaded){
+      return (
+      <div ref={this.handleContextRef}>
+          <Segment className="no-padd">
+            <Dimmer inverted active>
+              <Loader inverted size='big'>Loading</Loader> 
+            </Dimmer>
+          </Segment>
+      </div>)
+    }
     else
       return null;
   }

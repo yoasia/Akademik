@@ -176,14 +176,14 @@ class Report extends React.Component {
             console.log(error);
         });
     }
-    
+
     render() {
         let self = this;
         var modalElement = null;
         var modalOpened = (self.state.open && self.state.currentReportIndex != null);
         modalOpened = (modalOpened || (self.state.open &&  self.state.newReport));
         
-        if(this.state.open && this.state.currentReportIndex){
+        if(this.state.open && self.state.currentReportIndex != null){
             modalElement = (
                 <Modal dimmer="blurring" 
                     open={modalOpened} 

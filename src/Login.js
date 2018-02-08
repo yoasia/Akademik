@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import md5 from 'md5';
 import { Card, Loader, Image, Segment, Dimmer, 
-  Menu, Button, Icon, Grid, Form,  Header  } from 'semantic-ui-react';
+  Menu, Button, Icon, Grid, Form,  Header, Message  } from 'semantic-ui-react';
 
 
 class Login extends React.Component {
@@ -33,6 +33,7 @@ class Login extends React.Component {
       var randLogin = Math.random();
       var logged = false;
       var msg = null;
+      var error = null;
 
       axios.get("/api/login/login.php", {
         params: {
@@ -48,7 +49,7 @@ class Login extends React.Component {
               self.state.afterLogin(userData);
           }
           else{
-              msg = response.data;
+              msg = response.data.msg;
               self.setState({logged, msg});
           }
         console.log(response);
@@ -59,6 +60,17 @@ class Login extends React.Component {
   }
 
   render() {
+    var errorMsgElement = null;
+    var header = null;
+    if(this.state.msg){
+      errorMsgElement = (
+        <Message
+        error
+        header='Error'
+        content={this.state.msg}
+        />
+      );
+    }
     return (
       <Grid container columns={1} stackable className="padd fullscreen">
           <Grid.Column key={1} verticalAlign="middle">
@@ -74,9 +86,10 @@ class Login extends React.Component {
                   Sing In
                 </Card.Header>
                 <Card.Description>
-                  <Form size="large"  onSubmit={this.handleSubmit}>
+                  <Form size="large" error onSubmit={this.handleSubmit}>
                     <Form.Input name="email" fluid label='Email' placeholder='xxx@gmail.com' onChange={this.handleChange} />
                     <Form.Input name="password" label='Password' type='password' placeholder='*******' onChange={this.handleChange} />
+                    {errorMsgElement}
                     <Form.Button floated="right">Sing In</Form.Button>
                   </Form>
                 </Card.Description>

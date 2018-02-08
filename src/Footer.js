@@ -13,7 +13,7 @@ class Footer extends React.Component {
     return (
       <SemanticHeader  attached='bottom' className="gradient padd">
         <SemanticHeader.Content>
-          Copyright © 2018
+          Copyright © 2018 Authors: Karol Jurczenia, Evgen Belsky, Vlasislav Lysenko, Joanna Sienkiewicz
         </SemanticHeader.Content>
       </SemanticHeader>
     );

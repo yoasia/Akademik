@@ -9,45 +9,52 @@
   if (isset($_GET['email'], $_GET['p'])) {
       $email = $_GET['email'];
       $password = $_GET['p'];
-      if (login($email, $password) == true) {
-          // Login success
-          $query = "SELECT room_number FROM users WHERE email='{$email}'";
-          $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+      if(chechIfUserExists($email) == true) {
+            if(login($email, $password) == true){ 
+                // Login success
+                $query = "SELECT room_number FROM users WHERE email='{$email}'";
+                $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                $row_cnt = mysqli_num_rows($result);
+            
+                if ($row_cnt > 0) {
+                    $room_number = mysqli_fetch_assoc($result)["room_number"];
 
-          if ($result > 0) {
-                $room_number = mysqli_fetch_assoc($result)["room_number"];
+                    $_SESSION["status"] = true;
+                    $_SESSION["floor"] = getFloorNumber($room_number);
+                    $_SESSION["mail"] = $email;
+                    $_SESSION["nickname"] = getNicknameByMail($email);
+                    $_SESSION["type"] = "student";
+                    $_SESSION["room"] = $room_number;
 
-                $_SESSION["status"] = true;
-                $_SESSION["floor"] = getFloorNumber($room_number);
-                $_SESSION["mail"] = $email;
-                $_SESSION["nickname"] = getNicknameByMail($email);
-                $_SESSION["type"] = "student";
-                $_SESSION["room"] = $room_number;
+                    $query = "SELECT ds_number FROM users WHERE email='{$email}'";
+                    $result_2 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    $_SESSION["ds_number"] = mysqli_fetch_assoc($result_2)["ds_number"];
 
-                $query = "SELECT ds_number FROM users WHERE email='{$email}'";
-                $result_2 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-                $_SESSION["ds_number"] = mysqli_fetch_assoc($result_2)["ds_number"];
+                    $query = "SELECT id_user FROM users WHERE email='{$email}'";
+                    $result_3 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    $_SESSION["id_user"] = mysqli_fetch_assoc($result_3)["id_user"];
 
-                $query = "SELECT id_user FROM users WHERE email='{$email}'";
-                $result_3 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-                $_SESSION["id_user"] = mysqli_fetch_assoc($result_3)["id_user"];
+                    $query = "SELECT user_type FROM users WHERE email='{$email}'";
+                    $result_4 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+                    $_SESSION["user_type"] = mysqli_fetch_assoc($result_4)["user_type"];
 
-                $query = "SELECT user_type FROM users WHERE email='{$email}'";
-                $result_4 = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-                $_SESSION["user_type"] = mysqli_fetch_assoc($result_4)["user_type"];
+                    include_once './get_login_status.php';
 
-                include_once './get_login_status.php';
-
-          } else {
-            echo "Login ERROR: failed to parse the room number";
-          }
-
+                } else {
+                    echo '{"status":false, "msg": "Could not find user."}';
+                }
+            }
+            else {
+                echo '{"status":false, "msg": "Incorrect password"}';
+            }
       } else {
-          // Login failed
-          echo "Login ERROR";
+          // User doesnt exists
+          echo '{"status":false, "msg": "User doesn\'t exists"}';
       }
+    
   } else {
       // The correct POST variables were not sent to this page.
-      echo 'Invalid Request';
+      echo '{"status":false,
+        "msg": "Email od password not set"}';;
   }
 ?>

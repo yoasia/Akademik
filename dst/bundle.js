@@ -11273,7 +11273,7 @@ var BookingComponent = function (_React$Component) {
     key: 'render',
     value: function render() {
       var self = this;
-      if (this.state.data.length != 0 && this.state.data) return _react2.default.createElement(
+      if (this.state.data.length != 0 && this.state.data && this.state.downloaded) return _react2.default.createElement(
         _semanticUiReact.Grid.Row,
         { key: 1 },
         this.state.data.days.map(function (day, index) {
@@ -11380,7 +11380,25 @@ var BookingComponent = function (_React$Component) {
             )
           );
         })
-      );else return null;
+      );else if (this.state.downloaded) {
+        return _react2.default.createElement(
+          'div',
+          { ref: this.handleContextRef },
+          _react2.default.createElement(
+            _semanticUiReact.Segment,
+            { className: 'no-padd' },
+            _react2.default.createElement(
+              _semanticUiReact.Dimmer,
+              { inverted: true, active: true },
+              _react2.default.createElement(
+                _semanticUiReact.Loader,
+                { inverted: true, size: 'big' },
+                'Loading'
+              )
+            )
+          )
+        );
+      } else return null;
     }
   }]);
 
@@ -69750,6 +69768,7 @@ var Login = function (_React$Component) {
       var randLogin = Math.random();
       var logged = false;
       var msg = null;
+      var error = null;
 
       _axios2.default.get("/api/login/login.php", {
         params: {
@@ -69763,7 +69782,7 @@ var Login = function (_React$Component) {
           self.setState({ logged: logged, userData: userData });
           self.state.afterLogin(userData);
         } else {
-          msg = response.data;
+          msg = response.data.msg;
           self.setState({ logged: logged, msg: msg });
         }
         console.log(response);
@@ -69774,6 +69793,15 @@ var Login = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var errorMsgElement = null;
+      var header = null;
+      if (this.state.msg) {
+        errorMsgElement = _react2.default.createElement(_semanticUiReact.Message, {
+          error: true,
+          header: 'Error',
+          content: this.state.msg
+        });
+      }
       return _react2.default.createElement(
         _semanticUiReact.Grid,
         { container: true, columns: 1, stackable: true, className: 'padd fullscreen' },
@@ -69806,9 +69834,10 @@ var Login = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   _semanticUiReact.Form,
-                  { size: 'large', onSubmit: this.handleSubmit },
+                  { size: 'large', error: true, onSubmit: this.handleSubmit },
                   _react2.default.createElement(_semanticUiReact.Form.Input, { name: 'email', fluid: true, label: 'Email', placeholder: 'xxx@gmail.com', onChange: this.handleChange }),
                   _react2.default.createElement(_semanticUiReact.Form.Input, { name: 'password', label: 'Password', type: 'password', placeholder: '*******', onChange: this.handleChange }),
+                  errorMsgElement,
                   _react2.default.createElement(
                     _semanticUiReact.Form.Button,
                     { floated: 'right' },
@@ -70341,7 +70370,7 @@ var Footer = function (_React$Component) {
         _react2.default.createElement(
           _semanticUiReact.Header.Content,
           null,
-          'Copyright \xA9 2018'
+          'Copyright \xA9 2018 Authors: Karol Jurczenia, Evgen Belsky, Vlasislav Lysenko, Joanna Sienkiewicz'
         )
       );
     }
@@ -75871,7 +75900,7 @@ var Report = function (_React$Component) {
             var modalOpened = self.state.open && self.state.currentReportIndex != null;
             modalOpened = modalOpened || self.state.open && self.state.newReport;
 
-            if (this.state.open && this.state.currentReportIndex) {
+            if (this.state.open && self.state.currentReportIndex != null) {
                 modalElement = _react2.default.createElement(
                     _semanticUiReact.Modal,
                     { dimmer: 'blurring',

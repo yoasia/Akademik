@@ -35,8 +35,24 @@ function login($email, $password)
     $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
 
     $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    $row_cnt = mysqli_num_rows($result);
 
-    if ($result > 0) {
+    if ($row_cnt > 0) {
+      return true;
+    } else {
+      return false;
+    }
+}
+
+function chechIfUserExists($email)
+{
+    $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+    $query = "SELECT * FROM users WHERE email='$email'";
+
+    $result = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+    $row_cnt = mysqli_num_rows($result);
+    
+    if ($row_cnt > 0) {
       return true;
     } else {
       return false;
